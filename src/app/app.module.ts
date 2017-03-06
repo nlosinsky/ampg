@@ -28,8 +28,8 @@ import { HeaderModule, FooterModule } from './core/components';
 
 // Pages
 import { HomeModule } from './pages/home';
-import { PageOneModule } from  './pages/page-one';
-import { PageTwoModule } from  './pages/page-two';
+import { PageOneModule } from './pages/page-one';
+import { PageTwoModule } from './pages/page-two';
 
 // Services
 
