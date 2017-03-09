@@ -5,16 +5,19 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 import {AppComponent} from './app.component';
-import {CoursesComponent} from './pages/courses/courses.component';
 
 import {routes} from './app.routes';
 import { FooterModule } from './core/components/footer/footer.module';
 import {HeaderModule} from "./core/components/header/header.module";
+import {CoursesModule} from "./pages/courses/courses.module";
+import {CourseDetailsModule} from "./pages/course-details/course-details.module";
+import {NoContentComponent} from "./pages/no-content/no-content.component";
+import {LoginModule} from "./pages/login/login.module";
 
 @NgModule({
     declarations: [
         AppComponent,
-        CoursesComponent
+        NoContentComponent
     ],
     imports: [
         BrowserModule,
@@ -23,7 +26,10 @@ import {HeaderModule} from "./core/components/header/header.module";
         CommonModule,
         routes,
         FooterModule,
-        HeaderModule
+        HeaderModule,
+        CoursesModule,
+        CourseDetailsModule,
+        LoginModule
     ],
     providers: [],
     bootstrap: [AppComponent]
