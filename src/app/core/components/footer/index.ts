@@ -1,1 +1,1 @@
-
+export * from './footer.module';
