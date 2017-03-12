@@ -2,7 +2,6 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 @Component({
     selector: 'course-details',
-    encapsulation: ViewEncapsulation.None,
     templateUrl: 'course-details.template.html'
 })
 

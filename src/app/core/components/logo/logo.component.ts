@@ -2,7 +2,6 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 @Component({
     selector: 'logo',
-    encapsulation: ViewEncapsulation.None,
     templateUrl: 'logo.template.html'
 })
 

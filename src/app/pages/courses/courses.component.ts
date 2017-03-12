@@ -1,10 +1,9 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
-import {CourseItem} from '../../core/entities';
+import { CourseItem } from '../../core/entities';
 
 @Component({
     selector: 'courses',
-    encapsulation: ViewEncapsulation.None,
     templateUrl: 'courses.template.html'
 })
 

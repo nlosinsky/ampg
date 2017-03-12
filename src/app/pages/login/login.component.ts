@@ -2,7 +2,6 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 @Component({
     selector: 'login',
-    encapsulation: ViewEncapsulation.None,
     templateUrl: 'login.template.html'
 })
 

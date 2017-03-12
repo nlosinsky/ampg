@@ -2,7 +2,6 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 @Component({
     selector: 'main-footer',
-    encapsulation: ViewEncapsulation.None,
     templateUrl: 'footer.template.html',
     styles: [require('./footer.component.scss')],
 })
