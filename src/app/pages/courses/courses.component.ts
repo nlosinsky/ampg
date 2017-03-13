@@ -45,7 +45,7 @@ export class CoursesComponent implements OnInit {
         ]
     }
 
-    onDeleteItem(event) {
+    onDeleteItem(event): void  {
         console.log(event);
     }
 }
