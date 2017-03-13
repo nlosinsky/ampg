@@ -1,4 +1,40 @@
 .course-item {
   padding: 10px;
   border: 1px solid #cccccc;
+  display: flex;
+  justify-content: space-between;
+  height: 110px;
+  margin-bottom: 10px;
+
+
+
+
+  &__details {
+    margin-right: 10px;
+  }
+
+  &__actions {
+    width: 200px;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    button {
+      width: 100%;
+    }
+  }
+}
+
+.details {
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-between;
+
+  &__info {
+
+  }
+
+  &__short-desc {
+
+  }
 }

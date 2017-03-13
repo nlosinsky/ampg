@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'main-header',
     templateUrl: 'header.template.html',
-    styles: [require('./header.component.scss')],
+    styleUrls: ['header.component.scss'],
 })
 
 export class HeaderComponent implements OnInit {

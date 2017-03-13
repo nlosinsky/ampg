@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'main-footer',
     templateUrl: 'footer.template.html',
-    styles: [require('./footer.component.scss')],
+    styleUrls: ['footer.component.scss'],
 })
 
 export class FooterComponent implements OnInit {

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { CourseItem } from '../../core/entities';
 
@@ -43,5 +43,9 @@ export class CoursesComponent implements OnInit {
                 type: 'video',
             }
         ]
+    }
+
+    onDeleteItem(event) {
+        console.log(event);
     }
 }

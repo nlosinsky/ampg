@@ -1,6 +1,19 @@
 <div class="course-item">
-    <p>{{course.name}}</p>
-    <p>{{course.duration}}</p>
-    <p>{{course.shortDescription}}</p>
-    <p>{{course.date | date: 'medium'}}</p>
+    <div class="course-item__details details">
+        <div class="details__info">
+            <div>
+                <span>{{courseItem.name}}</span>
+                <span>{{courseItem.id}}</span>
+                <span>{{courseItem.duration}}</span>
+            </div>
+            <div>
+                <p>{{courseItem.date | date: 'medium'}}</p>
+            </div>
+        </div>
+        <p class="details__short-desc">{{courseItem.shortDescription}}</p>
+    </div>
+    <div class="course-item__actions">
+        <button>Edit course</button>
+        <button (click)="deleteCourseItem(courseItem.id)">Delete</button>
+    </div>
 </div>
