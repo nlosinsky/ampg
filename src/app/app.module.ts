@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { routes } from './app.routes';
-import { FooterModule, HeaderModule } from './core/components/';
+import { CoreModule } from './core';
 import { CoursesModule } from './pages/courses/courses.module';
 import { CourseDetailsModule } from './pages/course-details/course-details.module';
 import { NoContentComponent } from './pages/no-content/no-content.component';
@@ -23,11 +23,10 @@ import { LoginModule } from './pages/login/login.module';
         HttpModule,
         CommonModule,
         routes,
-        FooterModule,
-        HeaderModule,
         CoursesModule,
         CourseDetailsModule,
-        LoginModule
+        LoginModule,
+        CoreModule
     ],
     providers: [],
     bootstrap: [ AppComponent ]

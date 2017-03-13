@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { CoursesComponent } from './courses.component';
 import { CourseComponent } from './course/course.component';
-import { ToolboxComponent } from '../../core/components';
+import { CoreModule } from '../../core';
 
 @NgModule({
     declarations: [
         CoursesComponent,
-        CourseComponent,
-        ToolboxComponent
+        CourseComponent
     ],
     imports: [
         CommonModule,
-        FormsModule
+        FormsModule,
+        CoreModule
     ]
 })
 export class CoursesModule {
