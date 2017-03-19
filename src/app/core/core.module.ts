@@ -1,25 +1,30 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 import {
-    FooterModule,
-    HeaderModule,
-    ToolboxComponent
+    FooterComponent,
+    HeaderComponent,
+    ToolboxComponent,
+    LogoComponent
 } from './components';
 
 @NgModule({
     imports: [
-        FooterModule,
-        FormsModule
+        FormsModule,
+        RouterModule
     ],
     providers: [],
     exports: [
-        FooterModule,
-        HeaderModule,
+        FooterComponent,
+        HeaderComponent,
         ToolboxComponent 
     ],
     declarations: [
-        ToolboxComponent
+        FooterComponent,
+        HeaderComponent,
+        ToolboxComponent,
+        LogoComponent
     ]
 })
 
