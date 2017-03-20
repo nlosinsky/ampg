@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { CoursesComponent } from './courses.component';
 import { CourseComponent } from './course/course.component';
 import { CoreModule } from '../../core';
+import { CoursesService } from './courses.service';
 
 @NgModule({
     declarations: [
@@ -15,6 +16,9 @@ import { CoreModule } from '../../core';
         CommonModule,
         FormsModule,
         CoreModule
+    ],
+    providers: [
+        CoursesService
     ]
 })
 export class CoursesModule {
