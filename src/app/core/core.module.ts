@@ -1,20 +1,26 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 import {
     FooterComponent,
     HeaderComponent,
     ToolboxComponent,
-    LogoComponent
+    LogoComponent,
+    BreadcrumbsComponent
 } from './components';
+import { AuthService } from './services';
 
 @NgModule({
     imports: [
         FormsModule,
-        RouterModule
+        RouterModule,
+        CommonModule
     ],
-    providers: [],
+    providers: [
+        AuthService
+    ],
     exports: [
         FooterComponent,
         HeaderComponent,
@@ -24,7 +30,8 @@ import {
         FooterComponent,
         HeaderComponent,
         ToolboxComponent,
-        LogoComponent
+        LogoComponent,
+        BreadcrumbsComponent
     ]
 })
 
