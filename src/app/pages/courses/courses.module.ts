@@ -8,20 +8,20 @@ import { CoreModule } from '../../core';
 import { CoursesService } from './courses.service';
 
 @NgModule({
-    declarations: [
-        CoursesComponent,
-        CourseComponent
-    ],
-    imports: [
-        CommonModule,
-        FormsModule,
-        CoreModule
-    ],
-    providers: [
-        CoursesService
-    ]
+  declarations: [
+    CoursesComponent,
+    CourseComponent
+  ],
+  imports: [
+    CommonModule,
+    FormsModule,
+    CoreModule
+  ],
+  providers: [
+    CoursesService
+  ]
 })
 export class CoursesModule {
-    constructor() {
-    }
+  constructor() {
+  }
 }

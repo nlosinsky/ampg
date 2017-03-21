@@ -13,26 +13,26 @@ import {
 import { AuthService } from './services';
 
 @NgModule({
-    imports: [
-        FormsModule,
-        RouterModule,
-        CommonModule
-    ],
-    providers: [
-        AuthService
-    ],
-    exports: [
-        FooterComponent,
-        HeaderComponent,
-        ToolboxComponent 
-    ],
-    declarations: [
-        FooterComponent,
-        HeaderComponent,
-        ToolboxComponent,
-        LogoComponent,
-        BreadcrumbsComponent
-    ]
+  imports: [
+    FormsModule,
+    RouterModule,
+    CommonModule
+  ],
+  providers: [
+    AuthService
+  ],
+  exports: [
+    FooterComponent,
+    HeaderComponent,
+    ToolboxComponent 
+  ],
+  declarations: [
+    FooterComponent,
+    HeaderComponent,
+    ToolboxComponent,
+    LogoComponent,
+    BreadcrumbsComponent
+  ]
 })
 
 export class CoreModule {

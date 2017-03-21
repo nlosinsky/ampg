@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'main-footer',
-    templateUrl: 'footer.template.html',
-    styleUrls: ['footer.component.scss'],
+  selector: 'main-footer',
+  templateUrl: 'footer.template.html',
+  styleUrls: ['footer.component.scss'],
 })
 
 export class FooterComponent implements OnInit {
-    constructor() {
-    }
+  constructor() {
+  }
 
-    ngOnInit() {
-        console.info('FooterComponent initialised');
-    }
+  ngOnInit() {
+    console.info('FooterComponent initialised');
+  }
 }

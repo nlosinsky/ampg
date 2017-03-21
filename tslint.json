@@ -1,7 +1,5 @@
 {
-	"extends": [
-		"tslint:recommended"
-	],
+	"extends": "tslint-config-airbnb",
 	"rulesDirectory": [
 		"node_modules/codelyzer"
 	],
@@ -54,10 +52,6 @@
 			true,
 			100
 		],
-		"indent": [
-			true,
-			"tabs"
-		],
 		"no-string-literal": false,
 		"no-use-before-declare": true,
 		"object-literal-sort-keys": false,
@@ -67,7 +61,6 @@
 			"single",
 			"avoid-escape"
 		],
-		"experimentalDecorators": true,
 		"variable-name": [
 			true,
 			"allow-leading-underscore",

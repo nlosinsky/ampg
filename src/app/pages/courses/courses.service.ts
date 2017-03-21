@@ -4,58 +4,55 @@ import { CourseItem } from '../../core/entities';
 
 @Injectable()
 export class CoursesService {
-    private courses: CourseItem[] =  [
-        {
-            id: 1,
-            shortDescription: 'Lorem desc1',
-            duration: '1h 28min',
-            date: new Date(),
-            name: 'Video course',
-            type: 'video',
-        },
-        {
-            id: 2,
-            shortDescription: 'Lorem desc2',
-            duration: '17min',
-            date: new Date(),
-            name: 'Video course',
-            type: 'video',
-        },
-        {
-            id: 3,
-            shortDescription: 'Lorem desc3',
-            duration: '2h 15min',
-            date: new Date(),
-            name: 'Video course',
-            type: 'video',
-        }
-    ];
-
-    constructor() {
+  private courses: CourseItem[] = [
+    {
+      id: 1,
+      shortDescription: 'Lorem desc1',
+      duration: '1h 28min',
+      date: new Date(),
+      name: 'Video course',
+      type: 'video',
+    },
+    {
+      id: 2,
+      shortDescription: 'Lorem desc2',
+      duration: '17min',
+      date: new Date(),
+      name: 'Video course',
+      type: 'video',
+    },
+    {
+      id: 3,
+      shortDescription: 'Lorem desc3',
+      duration: '2h 15min',
+      date: new Date(),
+      name: 'Video course',
+      type: 'video',
     }
+  ];
 
-    getList(): CourseItem[] {
-        return this.courses;
-    }
+  constructor() {}
 
-    createCourse(course: CourseItem): void {
-        this.courses.push(course);
-    }
+  getList(): CourseItem[] {
+    return this.courses;
+  }
 
-    getItemById(id: number) {
-        return this.courses.find((el) => el.id === id);
-    }
+  createCourse(course: CourseItem): void {
+    this.courses.push(course);
+  }
 
-    updateItem(course: CourseItem): void {
-        const index = this.courses.findIndex((el) => el.id === course.id);
+  getItemById(id: number) {
+    return this.courses.find(el => el.id === id);
+  }
 
-        this.courses[index] = course;
-    }
+  updateItem(course: CourseItem): void {
+    const index = this.courses.findIndex(el => el.id === course.id);
+    this.courses[index] = course;
+  }
 
-    removeItem(id: number): void {
-        const index = this.courses.findIndex((el) => el.id === id);
+  removeItem(id: number): void {
+    const index = this.courses.findIndex(el => el.id === id);
 
-        this.courses.splice(index, 1);
-    }
-
+    this.courses.splice(index, 1);
+  }
 }

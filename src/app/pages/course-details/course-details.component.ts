@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'course-details',
-    templateUrl: 'course-details.template.html'
+  selector: 'course-details',
+  templateUrl: 'course-details.template.html'
 })
 
 export class CourseDetailsComponent implements OnInit {
-    constructor() {
-    }
+  constructor() {
+  }
 
-    ngOnInit() {
-        console.info('CourseDetailsComponent initialised');
-    }
+  ngOnInit() {
+    console.info('CourseDetailsComponent initialised');
+  }
 }

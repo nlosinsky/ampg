@@ -3,11 +3,11 @@ import { CourseDetailsComponent } from './course-details.component';
 
 
 @NgModule({
-    declarations: [
-        CourseDetailsComponent
-    ]
+  declarations: [
+    CourseDetailsComponent
+  ]
 })
 export class CourseDetailsModule {
-    constructor() {
-    }
+  constructor() {
+  }
 }

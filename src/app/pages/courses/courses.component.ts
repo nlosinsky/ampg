@@ -4,26 +4,24 @@ import { CourseItem } from '../../core/entities';
 import { CoursesService } from './courses.service';
 
 @Component({
-    selector: 'courses',
-    templateUrl: 'courses.template.html'
+  selector: 'courses',
+  templateUrl: 'courses.template.html'
 })
 
 export class CoursesComponent implements OnInit {
-    private coursesList: CourseItem[];
+  private coursesList: CourseItem[];
 
-    constructor(
-        private coursesSvc: CoursesService
-    ) {
-        this.coursesList = [];
-    }
+  constructor(private coursesSvc: CoursesService) {
+    this.coursesList = [];
+  }
 
-    ngOnInit() {
-        console.info('CoursesComponent initialised');
+  ngOnInit() {
+    console.info('CoursesComponent initialised');
 
-        this.coursesList = this.coursesSvc.getList();
-    }
+    this.coursesList = this.coursesSvc.getList();
+  }
 
-    onDeleteItem(event): void  {
-        this.coursesSvc.removeItem(event.id);
-    }
+  onDeleteItem(event): void {
+    this.coursesSvc.removeItem(event.id);
+  }
 }

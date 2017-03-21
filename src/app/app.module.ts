@@ -13,23 +13,23 @@ import { NoContentComponent } from './pages/no-content/no-content.component';
 import { LoginModule } from './pages/login/login.module';
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        NoContentComponent
-    ],
-    imports: [
-        BrowserModule,
-        FormsModule,
-        HttpModule,
-        CommonModule,
-        routes,
-        CoursesModule,
-        CourseDetailsModule,
-        LoginModule,
-        CoreModule
-    ],
-    providers: [],
-    bootstrap: [ AppComponent ]
+  declarations: [
+    AppComponent,
+    NoContentComponent
+  ],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpModule,
+    CommonModule,
+    routes,
+    CoursesModule,
+    CourseDetailsModule,
+    LoginModule,
+    CoreModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
 })
 
 export class AppModule {

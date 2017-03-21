@@ -3,11 +3,11 @@ import { LoginComponent } from './login.component';
 
 
 @NgModule({
-    declarations: [
-        LoginComponent
-    ]
+  declarations: [
+    LoginComponent
+  ]
 })
 export class LoginModule {
-    constructor() {
-    }
+  constructor() {
+  }
 }

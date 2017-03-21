@@ -7,11 +7,11 @@ import { LoginComponent } from './pages/login';
 import { NoContentComponent } from './pages/no-content';
 
 const appRoutes: Routes = [
-    {path: '', component: CoursesComponent},
-    {path: 'courses', component: CoursesComponent},
-    {path: 'course-details', component: CourseDetailsComponent},
-    {path: 'login', component: LoginComponent},
-    {path: '**', component: NoContentComponent},
+    { path: '', component: CoursesComponent },
+    { path: 'courses', component: CoursesComponent },
+    { path: 'course-details', component: CourseDetailsComponent },
+    { path: 'login', component: LoginComponent },
+    { path: '**', component: NoContentComponent },
 ];
 
 

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-	selector: 'no-content',
-	template: `
+  selector: 'no-content',
+  template: `
     <div>
       <h1>404: page missing</h1>
     </div>
@@ -10,10 +10,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NoContentComponent implements OnInit {
 
-	constructor(){
-	}
+  constructor() {
+  }
 
-	ngOnInit() {
-		console.info('NoContentComponent initialised');
-	}
+  ngOnInit() {
+    console.info('NoContentComponent initialised');
+  }
 }
