@@ -22,6 +22,8 @@ export class CoursesComponent implements OnInit {
   }
 
   onDeleteItem(event): void {
-    this.coursesSvc.removeItem(event.id);
+    if (confirm(`Do you really want to delete #${event.id} course`)) {
+      this.coursesSvc.removeItem(event.id);
+    }
   }
 }
