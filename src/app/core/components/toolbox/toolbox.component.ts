@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'toolbox',
   templateUrl: 'toolbox.template.html',
-  styleUrls: ['toolbox.component.scss']
+  styleUrls: ['toolbox.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class ToolboxComponent implements OnInit {

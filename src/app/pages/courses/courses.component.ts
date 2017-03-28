@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 import { CourseItem } from '../../core/entities';
 import { CoursesService } from './courses.service';
 
 @Component({
   selector: 'courses',
-  templateUrl: 'courses.template.html'
+  templateUrl: 'courses.template.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class CoursesComponent implements OnInit {

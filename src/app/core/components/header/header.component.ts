@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { AuthService } from '../../services';
 
 @Component({
   selector: 'main-header',
   templateUrl: 'header.template.html',
-  styleUrls: ['header.component.scss']
+  styleUrls: ['header.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class HeaderComponent implements OnInit {

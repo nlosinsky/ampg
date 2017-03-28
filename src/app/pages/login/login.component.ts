@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { AuthService } from '../../core/services';
 
 @Component({
   selector: 'login',
   templateUrl: 'login.template.html',
-  styleUrls: ['login.template.scss']
+  styleUrls: ['login.template.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent implements OnInit {
   login: string;

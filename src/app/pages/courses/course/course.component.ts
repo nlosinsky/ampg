@@ -1,11 +1,19 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  EventEmitter,
+  Output,
+  ChangeDetectionStrategy
+} from '@angular/core';
 
 import { CourseItem } from '../../../core/entities';
 
 @Component({
   selector: 'course',
   templateUrl: 'course.template.html',
-  styleUrls: ['course.component.scss']
+  styleUrls: ['course.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class CourseComponent implements OnInit {
