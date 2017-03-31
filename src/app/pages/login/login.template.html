@@ -1,11 +1,11 @@
 <div class="login-form">
     <div class="row">
         <label for="login">Login</label>
-        <input id="login" type="text" placeholder="Login" name="login111" [value]="login">
+        <input id="login" type="text" placeholder="Login" name="login" [(ngModel)]="login">
     </div>
     <div class="row">
         <label for="password">Password</label>
-        <input id="password" type="password" name="pass111" placeholder="Password" [value]="password">
+        <input id="password" type="password" name="pass" placeholder="Password" [(ngModel)]="password">
     </div>
     <div class="row">
         <button (click)="submit()">Enter</button>

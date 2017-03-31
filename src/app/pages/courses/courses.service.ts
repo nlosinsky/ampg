@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { CourseItem } from '../../core/entities';
 
@@ -33,8 +34,8 @@ export class CoursesService {
 
   constructor() {}
 
-  getList(): CourseItem[] {
-    return this.courses;
+  getList(): Observable<CourseItem[]> {
+    return Observable.of(this.courses);
   }
 
   createCourse(course: CourseItem): void {
@@ -42,11 +43,14 @@ export class CoursesService {
   }
 
   getItemById(id: number) {
-    return this.courses.find(el => el.id === id);
+    const item = this.courses.find(el => el.id === id);
+
+    return Observable.of(item);
   }
 
   updateItem(course: CourseItem): void {
     const index = this.courses.findIndex(el => el.id === course.id);
+
     this.courses[index] = course;
   }
 

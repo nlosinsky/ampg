@@ -1,10 +1,10 @@
 <nav class="main-navbar">
     <div class="container">
         <logo></logo>
-        <breadcrumbs *ngIf="isAuth()"></breadcrumbs>
+        <breadcrumbs *ngIf="isAuth"></breadcrumbs>
         <div class="menu">
-            <a *ngIf="!isAuth()" href="#" [routerLink]="'login'" routerLinkActive="active" class="menu-item">login</a>
-            <a *ngIf="isAuth()" (click)="logout()" class="menu-item">logout</a>
+            <a *ngIf="!isAuth" href="#" [routerLink]="'login'" routerLinkActive="active" class="menu-item">login</a>
+            <a *ngIf="isAuth" (click)="logout()" class="menu-item">{{username}}, logout</a>
         </div>
     </div>
 </nav>
