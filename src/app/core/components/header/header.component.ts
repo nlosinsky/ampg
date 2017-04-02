@@ -11,7 +11,7 @@ import { User } from '../../entities/user';
 })
 
 export class HeaderComponent implements OnInit, OnDestroy {
-  private authSubscriptions: Subscription[];
+  private authSubscriptions: Subscription[] = [];
 
   isAuth: boolean;
   username: string;

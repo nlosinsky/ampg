@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRe
 import { CourseItem } from '../../core/entities';
 import { CoursesService } from './courses.service';
 import { Subscription } from 'rxjs';
+import { LoaderBlockService } from '../../core/components';
 
 @Component({
   selector: 'courses',
@@ -15,7 +16,8 @@ export class CoursesComponent implements OnInit, OnDestroy {
 
   constructor(
       private coursesSvc: CoursesService,
-      private cd: ChangeDetectorRef
+      private cd: ChangeDetectorRef,
+      private loaderBlockService: LoaderBlockService
   ) {
     this.coursesList = [];
   }
@@ -35,7 +37,9 @@ export class CoursesComponent implements OnInit, OnDestroy {
 
   onDeleteItem(event): void {
     if (confirm(`Do you really want to delete #${event.id} course`)) {
-      this.coursesSvc.removeItem(event.id);
+      this.loaderBlockService.show();
+
+      this.coursesSvc.removeItem(event.id).subscribe(() => this.loaderBlockService.hide());
     }
   }
 }

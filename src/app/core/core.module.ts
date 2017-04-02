@@ -8,7 +8,9 @@ import {
     HeaderComponent,
     ToolboxComponent,
     LogoComponent,
-    BreadcrumbsComponent
+    BreadcrumbsComponent,
+    LoaderBlockComponent,
+    LoaderBlockService
 } from './components';
 import { AuthService } from './services';
 
@@ -19,19 +21,22 @@ import { AuthService } from './services';
     CommonModule
   ],
   providers: [
-    AuthService
+    AuthService,
+    LoaderBlockService
   ],
   exports: [
     FooterComponent,
     HeaderComponent,
-    ToolboxComponent 
+    ToolboxComponent,
+    LoaderBlockComponent
   ],
   declarations: [
     FooterComponent,
     HeaderComponent,
     ToolboxComponent,
     LogoComponent,
-    BreadcrumbsComponent
+    BreadcrumbsComponent,
+    LoaderBlockComponent
   ]
 })
 

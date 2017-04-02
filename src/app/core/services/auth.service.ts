@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { User } from '../entities/user';
 
 @Injectable()
-export class AuthService{
+export class AuthService {
   public userInfo = new BehaviorSubject<User>(this.getUserInfo());
   public authChanged = new BehaviorSubject<boolean>(this.isAuthenticated());
 
@@ -14,20 +14,30 @@ export class AuthService{
     localStorage.setItem('coursesUser', JSON.stringify(user));
     localStorage.setItem('coursesToken', token);
 
-    this.authChanged .next(true);
-    this.userInfo.next(user);
+    setTimeout(
+        () => {
+          this.authChanged.next(true);
+          this.userInfo.next(user);
 
-    console.log('User has logged in!');
+          console.log('User has logged in!');
+        },
+        1000
+    );
   }
 
   logout(): void {
     localStorage.removeItem('coursesUser');
     localStorage.removeItem('coursesToken');
 
-    this.authChanged .next(false);
-    this.userInfo.next(this.getUserInfo());
+    setTimeout(
+        () => {
+          this.authChanged.next(false);
+          this.userInfo.next(this.getUserInfo());
 
-    console.log('User has logged out!');
+          console.log('User has logged out!');
+        },
+        1000
+    );
   }
 
   private isAuthenticated(): boolean {

@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRe
 import { Router } from '@angular/router';
 import { AuthService } from '../../core/services';
 import { Subscription } from 'rxjs';
+import { LoaderBlockService } from '../../core/components';
 
 @Component({
   selector: 'login',
@@ -17,7 +18,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(
       private auth: AuthService,
       private cd: ChangeDetectorRef,
-      private router: Router
+      private router: Router,
+      private loaderBlockService: LoaderBlockService
   ) {
     this.login = '';
     this.password = '';
@@ -31,6 +33,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.router.navigate(['/']);
       }
 
+      this.loaderBlockService.hide();
       this.cd.markForCheck();
     });
   }
@@ -40,6 +43,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   submit(): void {
+    this.loaderBlockService.show();
+
     this.auth.login(
       {
         login: this.login,
