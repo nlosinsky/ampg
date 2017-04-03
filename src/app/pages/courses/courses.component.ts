@@ -22,7 +22,6 @@ import { ConfirmModalComponent } from '../../core/components/confirm-modal';
 
 export class CoursesComponent implements OnInit, OnDestroy {
   private coursesList: CourseItem[];
-    closeResult: string;
   private coursesSubscription: Subscription;
 
   constructor(
