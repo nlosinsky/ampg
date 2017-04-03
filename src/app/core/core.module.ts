@@ -10,7 +10,8 @@ import {
     LogoComponent,
     BreadcrumbsComponent,
     LoaderBlockComponent,
-    LoaderBlockService
+    LoaderBlockService,
+    ConfirmModalComponent
 } from './components';
 import {
     AuthService,
@@ -40,7 +41,8 @@ import {
     ToolboxComponent,
     LogoComponent,
     BreadcrumbsComponent,
-    LoaderBlockComponent
+    LoaderBlockComponent,
+    ConfirmModalComponent
   ]
 })
 

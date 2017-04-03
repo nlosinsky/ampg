@@ -4,13 +4,15 @@ import {
   OnDestroy,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  NgZone,
-  EventEmitter
+  NgZone
 } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 import { CourseItem } from '../../core/entities';
 import { CoursesService } from './courses.service';
 import { Subscription } from 'rxjs';
 import { LoaderBlockService } from '../../core/components';
+import { ConfirmModalComponent } from '../../core/components/confirm-modal';
 
 @Component({
   selector: 'courses',
@@ -20,13 +22,15 @@ import { LoaderBlockService } from '../../core/components';
 
 export class CoursesComponent implements OnInit, OnDestroy {
   private coursesList: CourseItem[];
+    closeResult: string;
   private coursesSubscription: Subscription;
 
   constructor(
       private coursesService: CoursesService,
       private cd: ChangeDetectorRef,
       private loaderBlockService: LoaderBlockService,
-      private ngZone: NgZone
+      private ngZone: NgZone,
+      private ngbModal: NgbModal
   ) {
     this.coursesList = [];
   }
@@ -55,10 +59,16 @@ export class CoursesComponent implements OnInit, OnDestroy {
   }
 
   onDeleteItem(event: any): void {
-    if (confirm(`Do you really want to delete #${event.id} course`)) {
-      this.loaderBlockService.show();
+    const modalRef = this.ngbModal.open(ConfirmModalComponent);
 
-      this.coursesService.removeItem(event.id).subscribe(() => this.loaderBlockService.hide());
-    }
+    modalRef.componentInstance.message = `Do you really want to delete #${event.id} course`;
+    modalRef.result.then(
+        () => {
+          this.loaderBlockService.show();
+          this.coursesService.removeItem(event.id).subscribe(() => this.loaderBlockService.hide());
+          this.cd.markForCheck();
+        },
+        reason => console.warn(reason)
+    );
   }
 }
