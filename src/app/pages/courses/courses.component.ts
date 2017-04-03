@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, NgZone } from '@angular/core';
 import { CourseItem } from '../../core/entities';
 import { CoursesService } from './courses.service';
 import { Subscription } from 'rxjs';
@@ -17,7 +17,8 @@ export class CoursesComponent implements OnInit, OnDestroy {
   constructor(
       private coursesSvc: CoursesService,
       private cd: ChangeDetectorRef,
-      private loaderBlockService: LoaderBlockService
+      private loaderBlockService: LoaderBlockService,
+      private ngZone: NgZone
   ) {
     this.coursesList = [];
   }
@@ -28,6 +29,16 @@ export class CoursesComponent implements OnInit, OnDestroy {
     this.coursesSubscription = this.coursesSvc.getList().subscribe((data: CourseItem[]) => {
       this.coursesList = data;
       this.cd.markForCheck();
+    });
+
+    let time;
+    this.ngZone.onUnstable.subscribe(() => time = Date.now());
+    this.ngZone.onStable.subscribe(() => {
+      if (!time) {
+        return;
+      }
+
+      console.log(Date.now() - time);
     });
   }
 
