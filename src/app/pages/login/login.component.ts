@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   private authSubscription: Subscription;
 
   constructor(
-      private auth: AuthService,
+      private authService: AuthService,
       private cd: ChangeDetectorRef,
       private router: Router,
       private loaderBlockService: LoaderBlockService
@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnInit() {
     console.info('LoginComponent initialised');
 
-    this.authSubscription = this.auth.authChanged.subscribe((isAuth: boolean) => {
+    this.authSubscription = this.authService.authChanged.subscribe((isAuth: boolean) => {
       if (isAuth) {
         this.router.navigate(['/']);
       }
@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   submit(): void {
     this.loaderBlockService.show();
 
-    this.auth.login(
+    this.authService.login(
       {
         login: this.login,
         password: this.password

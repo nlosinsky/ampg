@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   username: string;
 
   constructor(
-        private auth: AuthService,
+        private authService: AuthService,
         private cd: ChangeDetectorRef
     ) {
     this.isAuth = false;
@@ -27,14 +27,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
     console.info('HeaderComponent initialised');
 
     this.authSubscriptions.push(
-        this.auth.authChanged.subscribe((data) => {
+        this.authService.authChanged.subscribe((data) => {
           this.isAuth = data;
           this.cd.markForCheck();
         })
     );
 
     this.authSubscriptions.push(
-        this.auth.userInfo.subscribe(({ login }: User) => this.username = login)
+        this.authService.userInfo.subscribe(({ login }: User) => this.username = login)
     );
   }
 
@@ -43,6 +43,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   logout(): void {
-    this.auth.logout();
+    this.authService.logout();
   }
 }

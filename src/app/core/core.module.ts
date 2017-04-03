@@ -12,7 +12,10 @@ import {
     LoaderBlockComponent,
     LoaderBlockService
 } from './components';
-import { AuthService } from './services';
+import {
+    AuthService,
+    LocalStorageService
+} from './services';
 
 @NgModule({
   imports: [
@@ -22,7 +25,8 @@ import { AuthService } from './services';
   ],
   providers: [
     AuthService,
-    LoaderBlockService
+    LoaderBlockService,
+    LocalStorageService
   ],
   exports: [
     FooterComponent,

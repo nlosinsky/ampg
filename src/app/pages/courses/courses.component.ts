@@ -15,7 +15,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
   private coursesSubscription: Subscription;
 
   constructor(
-      private coursesSvc: CoursesService,
+      private coursesService: CoursesService,
       private cd: ChangeDetectorRef,
       private loaderBlockService: LoaderBlockService,
       private ngZone: NgZone
@@ -26,7 +26,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
   ngOnInit() {
     console.info('CoursesComponent initialised');
 
-    this.coursesSubscription = this.coursesSvc.getList().subscribe((data: CourseItem[]) => {
+    this.coursesSubscription = this.coursesService.getList().subscribe((data: CourseItem[]) => {
       this.coursesList = data;
       this.cd.markForCheck();
     });
@@ -50,7 +50,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
     if (confirm(`Do you really want to delete #${event.id} course`)) {
       this.loaderBlockService.show();
 
-      this.coursesSvc.removeItem(event.id).subscribe(() => this.loaderBlockService.hide());
+      this.coursesService.removeItem(event.id).subscribe(() => this.loaderBlockService.hide());
     }
   }
 }
