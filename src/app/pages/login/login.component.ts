@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.password = '';
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     console.info('LoginComponent initialised');
 
     this.authSubscription = this.authService.authChanged.subscribe((isAuth: boolean) => {
@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.authSubscription.unsubscribe();
   }
 

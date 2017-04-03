@@ -42,7 +42,7 @@ export class CoursesService {
     this.courses.push(course);
   }
 
-  getItemById(id: number) {
+  getItemById(id: number): Observable<CourseItem> {
     const item = this.courses.find(el => el.id === id);
 
     return Observable.of(item);

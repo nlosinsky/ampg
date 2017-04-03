@@ -13,7 +13,7 @@ export class ToolboxComponent implements OnInit {
   constructor() {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     console.info('ToolboxComponent initialised');
   }
 

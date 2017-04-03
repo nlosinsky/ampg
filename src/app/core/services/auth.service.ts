@@ -7,8 +7,8 @@ import { LocalStorageService } from './local-storage-service';
 export class AuthService {
   private COURSE_USER: string = 'coursesUser';
   private COURSE_TOKEN: string = 'coursesToken';
-  public userInfo = new BehaviorSubject<User>(this.getUserInfo());
-  public authChanged = new BehaviorSubject<boolean>(this.isAuthenticated());
+  public userInfo: BehaviorSubject<User> = new BehaviorSubject(this.getUserInfo());
+  public authChanged: BehaviorSubject<boolean> = new BehaviorSubject(this.isAuthenticated());
 
   constructor(
       private localStorageService: LocalStorageService

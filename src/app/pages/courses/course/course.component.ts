@@ -18,17 +18,15 @@ import { CourseItem } from '../../../core/entities';
 
 export class CourseComponent implements OnInit {
   @Input() course: CourseItem;
-  @Output() deleteItem = new EventEmitter();
+  @Output() deleteItem: EventEmitter<Object> = new EventEmitter();
 
-  constructor() {
+  constructor() {}
 
-  }
-
-  ngOnInit() {
+  ngOnInit(): void {
     console.info('CourseComponent initialised');
   }
 
-  deleteCourseItem(id) {
+  deleteCourseItem(id: string|number): void {
     this.deleteItem.emit({ id });
   }
 }

@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.isAuth = false;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     console.info('HeaderComponent initialised');
 
     this.authSubscriptions.push(
@@ -38,7 +38,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.authSubscriptions.forEach(subscription => subscription.unsubscribe());
   }
 

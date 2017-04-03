@@ -14,7 +14,7 @@ export class NoContentComponent implements OnInit {
   constructor() {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     console.info('NoContentComponent initialised');
   }
 }

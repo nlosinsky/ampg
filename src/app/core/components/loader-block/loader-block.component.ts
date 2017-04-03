@@ -18,7 +18,7 @@ export class LoaderBlockComponent implements OnInit {
     this.show = false;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.loaderBlockService.loaderIsShown.subscribe((show) => {
       this.show = show;
       this.cd.markForCheck();

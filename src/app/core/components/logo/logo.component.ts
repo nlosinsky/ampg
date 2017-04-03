@@ -8,12 +8,12 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 })
 
 export class LogoComponent implements OnInit {
-  public logo = 'assets/img/courses-logo.png';
+  public logo: string = 'assets/img/courses-logo.png';
 
   constructor() {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     console.info('LogoComponent initialised');
   }
 }

@@ -10,7 +10,7 @@ export class CourseDetailsComponent implements OnInit {
   constructor() {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     console.info('CourseDetailsComponent initialised');
   }
 }

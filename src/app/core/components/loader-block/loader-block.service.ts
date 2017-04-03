@@ -3,15 +3,15 @@ import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class LoaderBlockService {
-  public loaderIsShown = new BehaviorSubject<boolean>(false);
+  public loaderIsShown: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor() {}
 
-  show() {
+  show(): void {
     this.loaderIsShown.next(true);
   }
 
-  hide() {
+  hide(): void {
     this.loaderIsShown.next(false);
   }
 }

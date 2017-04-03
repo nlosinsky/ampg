@@ -68,6 +68,7 @@
 			"ban-keywords",
 			"check-format"
 		],
-		"import-spacing": true
+		"import-spacing": true,
+		"typedef": [true, "call-signature", "parameter", "member-variable-declaration"]
 	}
 }

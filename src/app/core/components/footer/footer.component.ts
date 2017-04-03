@@ -11,7 +11,7 @@ export class FooterComponent implements OnInit {
   constructor() {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     console.info('FooterComponent initialised');
   }
 }

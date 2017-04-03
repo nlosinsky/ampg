@@ -1,4 +1,12 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, NgZone } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  NgZone,
+  EventEmitter
+} from '@angular/core';
 import { CourseItem } from '../../core/entities';
 import { CoursesService } from './courses.service';
 import { Subscription } from 'rxjs';
@@ -23,7 +31,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
     this.coursesList = [];
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     console.info('CoursesComponent initialised');
 
     this.coursesSubscription = this.coursesService.getList().subscribe((data: CourseItem[]) => {
@@ -42,11 +50,11 @@ export class CoursesComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.coursesSubscription.unsubscribe();
   }
 
-  onDeleteItem(event): void {
+  onDeleteItem(event: any): void {
     if (confirm(`Do you really want to delete #${event.id} course`)) {
       this.loaderBlockService.show();
 
