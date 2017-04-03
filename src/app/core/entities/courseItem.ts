@@ -7,6 +7,7 @@ export class CourseItem implements CourseItemInterface {
         public duration: string,
         public date: Date,
         public name: string,
-        public type: string
+        public type: string,
+        public topRated: boolean
     ) {}
 }

@@ -17,11 +17,12 @@ import { ConfirmModalComponent } from '../../core/components/confirm-modal';
 @Component({
   selector: 'courses',
   templateUrl: 'courses.template.html',
+  styleUrls: ['courses.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class CoursesComponent implements OnInit, OnDestroy {
-  private coursesList: CourseItem[];
+  public coursesList: CourseItem[];
   private coursesSubscription: Subscription;
 
   constructor(

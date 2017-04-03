@@ -1,10 +1,11 @@
-<div class="course-item">
+<div courseBorder [createdDate]="course.date" class="course-item" [ngClass]="{'course-item--top-rated':course.topRated}">
     <div class="course-item__details details">
         <div class="details__info">
             <div>
                 <span>{{course.name}}</span>
                 <span>{{course.id}}</span>
                 <span>{{course.duration}}</span>
+                <span *ngIf="course.topRated" class="icon__top-rated"></span>
             </div>
             <div>
                 <p>{{course.date | date: 'medium'}}</p>

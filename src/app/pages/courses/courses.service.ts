@@ -10,25 +10,28 @@ export class CoursesService {
       id: 1,
       shortDescription: 'Lorem desc1',
       duration: '1h 28min',
-      date: new Date(),
+      date: new Date(2017, 4, 3),
       name: 'Video course',
       type: 'video',
+      topRated: false
     },
     {
       id: 2,
       shortDescription: 'Lorem desc2',
       duration: '17min',
-      date: new Date(),
+      date: new Date(2017, 3, 3),
       name: 'Video course',
       type: 'video',
+      topRated: true
     },
     {
       id: 3,
       shortDescription: 'Lorem desc3',
       duration: '2h 15min',
-      date: new Date(),
+      date: new Date(2017, 1, 1),
       name: 'Video course',
       type: 'video',
+      topRated: false
     }
   ];
 
