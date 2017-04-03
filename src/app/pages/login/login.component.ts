@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../core/services';
 import { Subscription } from 'rxjs';
 import { LoaderBlockService } from '../../core/components';
+import { User } from '../../core/entities';
 
 @Component({
   selector: 'login',
@@ -45,12 +46,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   submit(): void {
     this.loaderBlockService.show();
 
-    this.authService.login(
-      {
-        login: this.login,
-        password: this.password
-      },
-      'some-token'
-    );
+    this.authService.login(new User(this.login, this.password), 'some-token');
   }
 }
