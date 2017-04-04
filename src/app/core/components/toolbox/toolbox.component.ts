@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'toolbox',
@@ -8,6 +8,8 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 })
 
 export class ToolboxComponent implements OnInit {
+  @Output() query: EventEmitter<string> = new EventEmitter();
+
   public findField: string;
 
   constructor() {
@@ -18,6 +20,6 @@ export class ToolboxComponent implements OnInit {
   }
 
   findActon(): void {
-    console.log(this.findField);
+    this.query.emit(this.findField);
   }
 }

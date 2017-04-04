@@ -7,22 +7,27 @@ import {
   NgZone
 } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Subscription } from 'rxjs';
 
 import { CourseItem } from '../../core/entities';
 import { CoursesService } from './courses.service';
-import { Subscription } from 'rxjs';
 import { LoaderBlockService } from '../../core/components';
 import { ConfirmModalComponent } from '../../core/components/confirm-modal';
+import { FilterPipe } from '../../core/pipes';
 
 @Component({
   selector: 'courses',
   templateUrl: 'courses.template.html',
   styleUrls: ['courses.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    FilterPipe
+  ]
 })
 
 export class CoursesComponent implements OnInit, OnDestroy {
   public coursesList: CourseItem[];
+  private originalCoursesList: CourseItem[];
   private coursesSubscription: Subscription;
 
   constructor(
@@ -30,9 +35,11 @@ export class CoursesComponent implements OnInit, OnDestroy {
       private cd: ChangeDetectorRef,
       private loaderBlockService: LoaderBlockService,
       private ngZone: NgZone,
-      private ngbModal: NgbModal
+      private ngbModal: NgbModal,
+      private filterPipe: FilterPipe
   ) {
     this.coursesList = [];
+    this.originalCoursesList = [];
   }
 
   ngOnInit(): void {
@@ -40,6 +47,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
 
     this.coursesSubscription = this.coursesService.getList().subscribe((data: CourseItem[]) => {
       this.coursesList = data;
+      this.originalCoursesList = data;
       this.cd.markForCheck();
     });
 
@@ -70,5 +78,9 @@ export class CoursesComponent implements OnInit, OnDestroy {
         },
         reason => console.warn(reason)
     );
+  }
+
+  findCourses(event: string): void {
+    this.coursesList = this.filterPipe.transform(this.originalCoursesList, event);
   }
 }

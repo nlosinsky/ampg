@@ -38,9 +38,11 @@
   flex-grow: 1;
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
 
   &__info {
-
+    display: flex;
+    justify-content: space-between;
   }
 
   &__short-desc {

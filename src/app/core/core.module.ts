@@ -17,6 +17,11 @@ import {
     AuthService,
     LocalStorageService
 } from './services';
+import {
+    DurationPipe,
+    OrderByPipe,
+    FilterPipe
+} from './pipes';
 
 @NgModule({
   imports: [
@@ -33,7 +38,10 @@ import {
     FooterComponent,
     HeaderComponent,
     ToolboxComponent,
-    LoaderBlockComponent
+    LoaderBlockComponent,
+    DurationPipe,
+    OrderByPipe,
+    FilterPipe
   ],
   declarations: [
     FooterComponent,
@@ -42,7 +50,10 @@ import {
     LogoComponent,
     BreadcrumbsComponent,
     LoaderBlockComponent,
-    ConfirmModalComponent
+    ConfirmModalComponent,
+    DurationPipe,
+    OrderByPipe,
+    FilterPipe
   ]
 })
 
