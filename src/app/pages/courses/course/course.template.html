@@ -1,4 +1,4 @@
-<div courseBorder [createdDate]="course.createdDate" class="course-item" [ngClass]="{'course-item--top-rated':course.topRated}">
+<div courseBorder [date]="course.date" class="course-item" [ngClass]="{'course-item--top-rated':course.topRated}">
     <div class="course-item__details details">
         <div class="details__info">
             <div>
@@ -8,7 +8,7 @@
                 <span *ngIf="course.topRated" class="icon__top-rated"></span>
             </div>
             <div>
-                <p>{{course.createdDate | date: 'medium'}}</p>
+                <p>{{course.date | date: 'medium'}}</p>
             </div>
         </div>
         <p class="details__short-desc">{{course.shortDescription}}</p>

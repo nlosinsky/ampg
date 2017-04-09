@@ -5,7 +5,7 @@ import { CourseItem } from '../../core/entities';
 
 @Injectable()
 export class CoursesService {
-  private courses: CourseItem[] = [
+  private fakeCourses: any[] = [
     {
       id: 1,
       shortDescription: 'Lorem desc1',
@@ -34,10 +34,23 @@ export class CoursesService {
       topRated: false
     }
   ];
+  private courses: CourseItem[];
 
   constructor() {}
 
   getList(): Observable<CourseItem[]> {
+    const millisecondInOneDay = 86400000;
+    const fourteenDaysDiff = new Date().getTime() - 14 * millisecondInOneDay;
+
+    Observable.of(this.fakeCourses)
+        .map((arr) => {
+          return arr.map(({ id, shortDescription, duration, createdDate, name, type, topRated }) => {
+            return new CourseItem(id, shortDescription, duration, createdDate, name, type, topRated);
+          });
+        })
+        .map(item => item.filter(el => (el.date >= new Date(fourteenDaysDiff))))
+        .subscribe((el: CourseItem[]) => this.courses = el);
+
     return Observable.of(this.courses);
   }
 

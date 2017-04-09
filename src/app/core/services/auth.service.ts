@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, ReplaySubject } from 'rxjs';
 import { User } from '../entities/user';
 import { LocalStorageService } from './local-storage-service';
 import { LoaderBlockService } from '../components/loader-block';
@@ -8,13 +8,15 @@ import { LoaderBlockService } from '../components/loader-block';
 export class AuthService {
   private COURSE_USER: string = 'coursesUser';
   private COURSE_TOKEN: string = 'coursesToken';
-  public userInfo: BehaviorSubject<User|Object> = new BehaviorSubject(this.getUserInfo());
+  public userInfo: ReplaySubject<User|Object> = new ReplaySubject();
   public authChanged: BehaviorSubject<boolean> = new BehaviorSubject(this.isAuthenticated());
 
   constructor(
       private localStorageService: LocalStorageService,
       private loaderBlockService: LoaderBlockService
-  ) {}
+  ) {
+    this.userInfo.next(this.getUserInfo());
+  }
 
   login(user: User, token: string): void {
     this.loaderBlockService.show();

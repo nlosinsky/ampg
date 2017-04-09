@@ -4,15 +4,15 @@ import { Directive, ElementRef, Input, OnInit } from '@angular/core';
   selector: `[courseBorder]`
 })
 export class CourseBorderDirective implements OnInit {
-  @Input() createdDate: Date;
+  @Input() date: Date;
 
   constructor(private el: ElementRef) {}
 
   ngOnInit(): void {
-    const upcomingCondition = (this.createdDate > new Date());
+    const upcomingCondition = (this.date > new Date());
     const millisecondInOneDay = 86400000;
     const fourteenDaysDiff = new Date().getTime() - 14 * millisecondInOneDay;
-    const freshCondition = (this.createdDate < new Date() && this.createdDate >= new Date(fourteenDaysDiff));
+    const freshCondition = (this.date < new Date() && this.date >= new Date(fourteenDaysDiff));
 
     if (freshCondition) {
       this.el.nativeElement.style.borderColor = 'green';

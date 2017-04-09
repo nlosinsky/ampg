@@ -28,7 +28,7 @@ import { FilterPipe } from '../../core/pipes';
 export class CoursesComponent implements OnInit, OnDestroy {
   public coursesList: CourseItem[];
   private originalCoursesList: CourseItem[];
-  private coursesSubscription: Subscription;
+  private coursesSubscription: Subscription[];
 
   constructor(
       private coursesService: CoursesService,
@@ -40,30 +40,38 @@ export class CoursesComponent implements OnInit, OnDestroy {
   ) {
     this.coursesList = [];
     this.originalCoursesList = [];
+    this.coursesSubscription = [];
   }
 
   ngOnInit(): void {
     console.info('CoursesComponent initialised');
 
-    this.coursesSubscription = this.coursesService.getList().subscribe((data: CourseItem[]) => {
-      this.coursesList = data;
-      this.originalCoursesList = data;
-      this.cd.markForCheck();
-    });
+    this.coursesSubscription.push(
+        this.coursesService.getList().subscribe((data: CourseItem[]) => {
+          this.coursesList = data;
+          this.originalCoursesList = data;
+          this.cd.markForCheck();
+        })
+    );
 
     let time;
-    this.ngZone.onUnstable.subscribe(() => time = Date.now());
-    this.ngZone.onStable.subscribe(() => {
-      if (!time) {
-        return;
-      }
+    this.coursesSubscription.push(
+      this.ngZone.onUnstable.subscribe(() => time = Date.now())
+    );
 
-      console.log(Date.now() - time);
-    });
+    this.coursesSubscription.push(
+      this.ngZone.onStable.subscribe(() => {
+        if (!time) {
+          return;
+        }
+
+        console.log(Date.now() - time);
+      })
+    );
   }
 
   ngOnDestroy(): void {
-    this.coursesSubscription.unsubscribe();
+    this.coursesSubscription.forEach(subscription => subscription.unsubscribe());
   }
 
   onDeleteItem(event: any): void {
@@ -73,7 +81,11 @@ export class CoursesComponent implements OnInit, OnDestroy {
     modalRef.result.then(
         () => {
           this.loaderBlockService.show();
-          this.coursesService.removeItem(event.id).subscribe(() => this.loaderBlockService.hide());
+
+          this.coursesSubscription.push(
+            this.coursesService.removeItem(event.id).subscribe(() => this.loaderBlockService.hide())
+          );
+
           this.cd.markForCheck();
         },
         reason => console.warn(reason)

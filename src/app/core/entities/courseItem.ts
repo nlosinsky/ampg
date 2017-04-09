@@ -5,7 +5,7 @@ export class CourseItem implements CourseItemInterface {
         public id: number,
         public shortDescription: string,
         public duration: number,
-        public createdDate: Date,
+        public date: Date,
         public name: string,
         public type: string,
         public topRated: boolean
