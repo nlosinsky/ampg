@@ -10,6 +10,7 @@ import { routes } from './app.routes';
 import { CoreModule } from './core';
 import { CoursesModule } from './pages/courses/courses.module';
 import { CourseDetailsModule } from './pages/course-details/course-details.module';
+import { AddCourseModule } from './pages/add-course/add-course.module';
 import { NoContentComponent } from './pages/no-content/no-content.component';
 import { LoginModule } from './pages/login/login.module';
 
@@ -28,6 +29,7 @@ import { LoginModule } from './pages/login/login.module';
     CourseDetailsModule,
     LoginModule,
     CoreModule,
+    AddCourseModule,
     NgbModule.forRoot()
   ],
   providers: [],

@@ -3,7 +3,7 @@ import { Component, OnInit, ViewEncapsulation, ChangeDetectionStrategy } from '@
 @Component({
   selector: 'app',
   encapsulation: ViewEncapsulation.None,
-  styleUrls: ['styles/vendors.scss', 'styles/index.scss', 'app.styles.scss'],
+  styleUrls: ['styles/vendors.scss', 'styles/index.scss', 'app.component.scss'],
   templateUrl: 'app.template.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })

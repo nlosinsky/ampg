@@ -11,7 +11,9 @@ import {
     BreadcrumbsComponent,
     LoaderBlockComponent,
     LoaderBlockService,
-    ConfirmModalComponent
+    ConfirmModalComponent,
+    DateInputComponent,
+    InputInMinutesComponent
 } from './components';
 import {
     AuthService,
@@ -41,7 +43,9 @@ import {
     LoaderBlockComponent,
     DurationPipe,
     OrderByPipe,
-    FilterPipe
+    FilterPipe,
+    DateInputComponent,
+    InputInMinutesComponent
   ],
   declarations: [
     FooterComponent,
@@ -53,7 +57,9 @@ import {
     ConfirmModalComponent,
     DurationPipe,
     OrderByPipe,
-    FilterPipe
+    FilterPipe,
+    DateInputComponent,
+    InputInMinutesComponent
   ]
 })
 

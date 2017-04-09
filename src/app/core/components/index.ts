@@ -5,3 +5,5 @@ export * from './toolbox';
 export * from './breadcrumbs';
 export * from './loader-block';
 export * from './confirm-modal';
+export * from './date-input';
+export * from './input-in-minutes';

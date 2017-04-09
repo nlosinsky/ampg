@@ -8,7 +8,6 @@ import { User } from '../../core/entities';
 @Component({
   selector: 'login',
   templateUrl: 'login.template.html',
-  styleUrls: ['login.template.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent implements OnInit, OnDestroy {
