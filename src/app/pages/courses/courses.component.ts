@@ -6,13 +6,11 @@ import {
   ChangeDetectorRef,
   NgZone
 } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 
 import { CourseItem } from '../../core/entities';
 import { CoursesService } from './courses.service';
-import { LoaderBlockService } from '../../core/components';
-import { ConfirmModalComponent } from '../../core/components/confirm-modal';
+import { LoaderBlockService, ModalService } from '../../core/components';
 import { FilterPipe } from '../../core/pipes';
 
 @Component({
@@ -35,7 +33,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
       private cd: ChangeDetectorRef,
       private loaderBlockService: LoaderBlockService,
       private ngZone: NgZone,
-      private ngbModal: NgbModal,
+      private modalService: ModalService,
       private filterPipe: FilterPipe
   ) {
     this.coursesList = [];
@@ -75,10 +73,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
   }
 
   onDeleteItem(event: any): void {
-    const modalRef = this.ngbModal.open(ConfirmModalComponent);
-
-    modalRef.componentInstance.message = `Do you really want to delete #${event.id} course`;
-    modalRef.result.then(
+    this.modalService.openConfirm(`Do you really want to delete #${event.id} course`).then(
         () => {
           this.loaderBlockService.show();
 

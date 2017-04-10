@@ -11,9 +11,9 @@ import {
     BreadcrumbsComponent,
     LoaderBlockComponent,
     LoaderBlockService,
-    ConfirmModalComponent,
     DateInputComponent,
-    InputInMinutesComponent
+    InputInMinutesComponent,
+    ModalModule
 } from './components';
 import {
     AuthService,
@@ -29,7 +29,8 @@ import {
   imports: [
     FormsModule,
     RouterModule,
-    CommonModule
+    CommonModule,
+    ModalModule
   ],
   providers: [
     AuthService,
@@ -54,7 +55,6 @@ import {
     LogoComponent,
     BreadcrumbsComponent,
     LoaderBlockComponent,
-    ConfirmModalComponent,
     DurationPipe,
     OrderByPipe,
     FilterPipe,
