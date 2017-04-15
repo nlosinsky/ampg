@@ -8,6 +8,6 @@ export class CourseItem implements CourseItemInterface {
         public date: Date,
         public name: string,
         public type: string,
-        public topRated: boolean
+        public isTopRated: boolean
     ) {}
 }
