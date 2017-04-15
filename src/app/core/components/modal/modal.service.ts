@@ -14,7 +14,6 @@ export class ModalService {
   }
 
   openConfirm(message: string): Promise<any> {
-    console.log(ConfirmModalComponent);
     const modalRef = this.open(ConfirmModalComponent);
 
     modalRef.componentInstance.message = message;

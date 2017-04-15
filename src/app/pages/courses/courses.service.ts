@@ -2,66 +2,34 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { CourseItem } from '../../core/entities';
+import { EndpointsConstant } from '../../core/constants';
+import { RestService } from '../../core/services';
 
 @Injectable()
 export class CoursesService {
-  private fakeCourses: any[] = [
-    {
-      id: 1,
-      shortDescription: 'Lorem desc1',
-      duration: 88,
-      createdDate: new Date(2017, 4, 3),
-      name: 'First video course',
-      type: 'video',
-      isTopRated: false
-    },
-    {
-      id: 2,
-      shortDescription: 'Lorem desc2',
-      duration: 17,
-      createdDate: new Date(2017, 3, 3),
-      name: 'Second video course',
-      type: 'video',
-      isTopRated: true
-    },
-    {
-      id: 3,
-      shortDescription: 'Lorem desc3',
-      duration: 135,
-      createdDate: new Date(2017, 1, 1),
-      name: 'Third video course',
-      type: 'video',
-      isTopRated: false
-    }
-  ];
   private courses: CourseItem[];
 
-  constructor() {}
+  constructor(
+      private http: RestService
+  ) {}
 
   getList(): Observable<CourseItem[]> {
     const millisecondInOneDay = 86400000;
     const fourteenDaysDiff = new Date().getTime() - 14 * millisecondInOneDay;
 
-    Observable.of(this.fakeCourses)
+    return this.http.get(EndpointsConstant.COURSES.ALL)
         .map((arr) => {
-          return arr.map(({ id, shortDescription, duration, createdDate, name, type, isTopRated }) => {
-            return new CourseItem(id, shortDescription, duration, createdDate, name, type, isTopRated);
+          return arr.map(({ id, shortDescription, duration, date, name, type, isTopRated }) => {
+            return new CourseItem(id, shortDescription, duration, new Date(date), name, type, isTopRated);
           });
         })
-        .map(item => item.filter(el => (el.date >= new Date(fourteenDaysDiff))))
-        .subscribe((el: CourseItem[]) => this.courses = el);
-
-    return Observable.of(this.courses);
+        .map(item => item.filter(el => (el.date >= new Date(fourteenDaysDiff))));
   }
 
   createCourse(course: CourseItem): void {
-    this.courses.push(course);
   }
 
-  getItemById(id: number): Observable<CourseItem> {
-    const item = this.courses.find(el => el.id === id);
-
-    return Observable.of(item);
+  getItemById(id: number): void {
   }
 
   updateItem(course: CourseItem): void {
@@ -71,10 +39,8 @@ export class CoursesService {
   }
 
   removeItem(id: number): Observable<CourseItem[]> {
-    const index = this.courses.findIndex(el => el.id === id);
+    const url = [EndpointsConstant.COURSES.ALL, id].join('/');
 
-    this.courses.splice(index, 1);
-
-    return Observable.of(this.courses).delay(1000);
+    return this.http.delete(url);
   }
 }

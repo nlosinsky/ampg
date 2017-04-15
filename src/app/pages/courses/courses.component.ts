@@ -3,8 +3,7 @@ import {
   OnInit,
   OnDestroy,
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  NgZone
+  ChangeDetectorRef
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 
@@ -32,7 +31,6 @@ export class CoursesComponent implements OnInit, OnDestroy {
       private coursesService: CoursesService,
       private cd: ChangeDetectorRef,
       private loaderBlockService: LoaderBlockService,
-      private ngZone: NgZone,
       private modalService: ModalService,
       private filterPipe: FilterPipe
   ) {
@@ -44,28 +42,19 @@ export class CoursesComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     console.info('CoursesComponent initialised');
 
-    this.coursesSubscription.push(
-        this.coursesService.getList().subscribe((data: CourseItem[]) => {
-          this.coursesList = data;
-          this.originalCoursesList = data;
-          this.cd.markForCheck();
-        })
-    );
+    this.coursesSubscription.push(this.getCoursesList());
+  }
 
-    let time;
-    this.coursesSubscription.push(
-      this.ngZone.onUnstable.subscribe(() => time = Date.now())
-    );
+  private getCoursesList(): Subscription {
+    return this.coursesService.getList().subscribe((data: CourseItem[]) => {
+      if (!data) {
+        return;
+      }
 
-    this.coursesSubscription.push(
-      this.ngZone.onStable.subscribe(() => {
-        if (!time) {
-          return;
-        }
-
-        console.log(Date.now() - time);
-      })
-    );
+      this.coursesList = data;
+      this.originalCoursesList = data;
+      this.cd.markForCheck();
+    });
   }
 
   ngOnDestroy(): void {
@@ -78,7 +67,10 @@ export class CoursesComponent implements OnInit, OnDestroy {
           this.loaderBlockService.show();
 
           this.coursesSubscription.push(
-            this.coursesService.removeItem(event.id).subscribe(() => this.loaderBlockService.hide())
+            this.coursesService
+                .removeItem(event.id)
+                .subscribe(() => this.getCoursesList()
+                .add(() => this.loaderBlockService.hide()))
           );
 
           this.cd.markForCheck();

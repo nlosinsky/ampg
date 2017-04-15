@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { XHRBackend, RequestOptions } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -17,7 +18,9 @@ import {
 } from './components';
 import {
     AuthService,
-    LocalStorageService
+    LocalStorageService,
+    AuthorizedHttp,
+    RestService
 } from './services';
 import {
     DurationPipe,
@@ -35,7 +38,13 @@ import {
   providers: [
     AuthService,
     LoaderBlockService,
-    LocalStorageService
+    LocalStorageService,
+    {
+      provide: AuthorizedHttp,
+      useFactory: (backend: XHRBackend, defaultOptions: RequestOptions) => new AuthorizedHttp(backend, defaultOptions),
+      deps: [XHRBackend, RequestOptions]
+    },
+    RestService
   ],
   exports: [
     FooterComponent,
