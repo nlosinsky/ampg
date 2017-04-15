@@ -5,5 +5,5 @@ export  interface CourseItemInterface {
   date: Date;
   name: string;
   type: string;
-  topRated: boolean;
+  isTopRated: boolean;
 }

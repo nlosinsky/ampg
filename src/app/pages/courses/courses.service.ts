@@ -13,7 +13,7 @@ export class CoursesService {
       createdDate: new Date(2017, 4, 3),
       name: 'First video course',
       type: 'video',
-      topRated: false
+      isTopRated: false
     },
     {
       id: 2,
@@ -22,7 +22,7 @@ export class CoursesService {
       createdDate: new Date(2017, 3, 3),
       name: 'Second video course',
       type: 'video',
-      topRated: true
+      isTopRated: true
     },
     {
       id: 3,
@@ -31,7 +31,7 @@ export class CoursesService {
       createdDate: new Date(2017, 1, 1),
       name: 'Third video course',
       type: 'video',
-      topRated: false
+      isTopRated: false
     }
   ];
   private courses: CourseItem[];
@@ -44,8 +44,8 @@ export class CoursesService {
 
     Observable.of(this.fakeCourses)
         .map((arr) => {
-          return arr.map(({ id, shortDescription, duration, createdDate, name, type, topRated }) => {
-            return new CourseItem(id, shortDescription, duration, createdDate, name, type, topRated);
+          return arr.map(({ id, shortDescription, duration, createdDate, name, type, isTopRated }) => {
+            return new CourseItem(id, shortDescription, duration, createdDate, name, type, isTopRated);
           });
         })
         .map(item => item.filter(el => (el.date >= new Date(fourteenDaysDiff))))

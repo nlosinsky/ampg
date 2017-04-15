@@ -4,13 +4,15 @@
   "description": "Mock backend for Angular course",
   "main": "index.js",
   "scripts": {
-    "start": "node index"
+    "start:prod": "node index",
+    "start:dev": "nodemon index"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.14.1",
     "json-server": "^0.9.4",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "nodemon": "^1.11.0"
   }
 }

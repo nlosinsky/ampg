@@ -17,7 +17,10 @@ module.exports = (server) => {
 		if (courses.length < to) {
 			to = courses.length;
 		}
-		courses = courses.slice(from, to);
+
+		if (from && to) {
+            courses = courses.slice(from, to);
+		}
 		
 		res.json(courses);
 	});
