@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, ReplaySubject } from 'rxjs';
 
 import { User } from '../entities/user';
-import { LSConstants } from '../constants';
+import { LSConstants, EndpointsConstant } from '../constants';
 import { LocalStorageService } from './local-storage-service';
 import { LoaderBlockService } from '../components/loader-block';
+import { RestService } from './rest.service';
 
 @Injectable()
 export class AuthService {
@@ -13,48 +14,45 @@ export class AuthService {
 
   constructor(
       private localStorageService: LocalStorageService,
-      private loaderBlockService: LoaderBlockService
+      private loaderBlockService: LoaderBlockService,
+      private restService: RestService
   ) {
     this.userInfo.next(this.getUserInfo());
   }
 
-  login(user: User, token: string): void {
+  login(login: string, password: string): void {
     this.loaderBlockService.show();
 
-    this.localStorageService.set(LSConstants.COURSES_USER, user);
-    this.localStorageService.set(LSConstants.COURSES_TOKEN, token);
+    this.restService.post(EndpointsConstant.AUTH.LOGIN, { login, password })
+        .subscribe(
+            ({ token }) => {
+              this.localStorageService.set(LSConstants.COURSES_TOKEN, token);
+              this.authChanged.next(true);
 
-    setTimeout(
-        () => {
-          this.authChanged.next(true);
-          this.userInfo.next(user);
+              this.restService.get(EndpointsConstant.AUTH.USER_INFO)
+                  .subscribe(
+                      ({ id, login, name }) => {
+                        const user = new User(id, login, name);
 
-          this.loaderBlockService.hide();
-
-          console.log('User has logged in!');
-
-        },
-        1000
-    );
+                        this.userInfo.next(user);
+                        this.localStorageService.set(LSConstants.COURSES_USER, user);
+                      },
+                      null,
+                      () => this.loaderBlockService.hide()
+                  );
+            },
+            () => {
+              this.authChanged.next(false);
+              this.loaderBlockService.hide();
+            }
+        );
   }
 
   logout(): void {
-    this.loaderBlockService.show();
-
     this.localStorageService.remove(LSConstants.COURSES_USER);
     this.localStorageService.remove(LSConstants.COURSES_TOKEN);
-
-    setTimeout(
-        () => {
-          this.authChanged.next(false);
-          this.userInfo.next(this.getUserInfo());
-
-          this.loaderBlockService.hide();
-
-          console.log('User has logged out!');
-        },
-        1000
-    );
+    this.authChanged.next(false);
+    this.userInfo.next(this.getUserInfo());
   }
 
   private isAuthenticated(): boolean {

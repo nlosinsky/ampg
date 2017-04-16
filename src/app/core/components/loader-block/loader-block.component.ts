@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { LoaderBlockService } from './loader-block.service';
-import { Subscription } from 'rxjs';
-
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'loader-block',
@@ -10,7 +9,7 @@ import { Subscription } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoaderBlockComponent implements OnInit, OnDestroy {
-  private loaderSubscribe: Subscription;
+  private ngUnsubscribe: Subject<void> = new Subject<void>();
   show: boolean;
 
   constructor(
@@ -21,13 +20,16 @@ export class LoaderBlockComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.loaderSubscribe = this.loaderBlockService.loaderIsShown.subscribe((show) => {
-      this.show = show;
-      this.cd.markForCheck();
-    });
+    this.loaderBlockService.loaderIsShown
+        .takeUntil(this.ngUnsubscribe)
+        .subscribe((show) => {
+          this.show = show;
+          this.cd.markForCheck();
+        });
   }
 
   ngOnDestroy(): void {
-    this.loaderSubscribe.unsubscribe();
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 }

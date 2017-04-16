@@ -20,7 +20,7 @@ module.exports = (server) => {
 		}
 	});
 		
-	router.post('/auth/userinfo', (req, res, next) => {
+	router.get('/auth/userInfo', (req, res, next) => {
 		let users = server.db.getState().users,
 			matchedUser = users.find((user) => {
 				console.log(user);

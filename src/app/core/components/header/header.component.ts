@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { AuthService } from '../../services';
-import { Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
 import { User } from '../../entities/user';
 
 @Component({
@@ -11,7 +11,7 @@ import { User } from '../../entities/user';
 })
 
 export class HeaderComponent implements OnInit, OnDestroy {
-  private authSubscriptions: Subscription[] = [];
+  private ngUnsubscribe: Subject<void> = new Subject<void>();
 
   isAuth: boolean;
   username: string;
@@ -26,20 +26,27 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     console.info('HeaderComponent initialised');
 
-    this.authSubscriptions.push(
-        this.authService.authChanged.subscribe((data) => {
+    this.authService.authChanged
+        .takeUntil(this.ngUnsubscribe)
+        .subscribe((data) => {
           this.isAuth = data;
           this.cd.markForCheck();
-        })
-    );
+        });
 
-    this.authSubscriptions.push(
-        this.authService.userInfo.subscribe(({ login }: User) => this.username = login)
-    );
+    this.authService.userInfo
+        .takeUntil(this.ngUnsubscribe)
+        .subscribe((user: User) => {
+          if (user.name) {
+            this.username = user.name.first;
+          }
+
+          this.cd.markForCheck();
+        });
   }
 
   ngOnDestroy(): void {
-    this.authSubscriptions.forEach(subscription => subscription.unsubscribe());
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   logout(): void {

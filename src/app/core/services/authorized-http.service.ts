@@ -10,11 +10,16 @@ import {
 } from '@angular/http';
 import { Observable } from 'rxjs';
 
-import { LSConstants } from '../constants'
+import { LSConstants } from '../constants';
+import { LocalStorageService } from './local-storage-service';
 
 @Injectable()
 export class AuthorizedHttp extends Http {
-  constructor(backend: ConnectionBackend, defaultOptions: RequestOptions) {
+  constructor(
+      private backend: ConnectionBackend,
+      private defaultOptions: RequestOptions,
+      private localStorageService: LocalStorageService
+  ) {
     super(backend, defaultOptions);
   }
 
@@ -25,8 +30,10 @@ export class AuthorizedHttp extends Http {
       requestOptions.headers = new Headers();
     }
 
-    if (localStorage.getItem(LSConstants.COURSES_TOKEN)) {
-      requestOptions.headers.set('Authorization', localStorage.getItem(LSConstants.COURSES_TOKEN));
+    const token = this.localStorageService.get(LSConstants.COURSES_TOKEN);
+
+    if (token) {
+      requestOptions.headers.set('Authorization', token.toString());
     }
 
     return super.request(url, requestOptions);

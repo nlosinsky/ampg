@@ -1,7 +1,6 @@
 import {
   Component,
   OnInit,
-  OnDestroy,
   ChangeDetectionStrategy,
   ChangeDetectorRef
 } from '@angular/core';
@@ -18,12 +17,11 @@ import { LoaderBlockService, ModalService } from '../../core/components';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class CoursesComponent implements OnInit, OnDestroy {
+export class CoursesComponent implements OnInit {
   public coursesList: CourseItem[];
   public currentPage: number;
   public itemsPerPage: number;
   public coursesCount: number;
-  private coursesSubscription: Subscription[];
   private searchPhrase: string;
 
   constructor(
@@ -33,7 +31,6 @@ export class CoursesComponent implements OnInit, OnDestroy {
       private modalService: ModalService
   ) {
     this.coursesList = [];
-    this.coursesSubscription = [];
     
     this.resetPagination();
   }
@@ -41,7 +38,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     console.info('CoursesComponent initialised');
 
-    this.coursesSubscription.push(this.getCoursesList());
+    this.getCoursesList();
   }
   
   private resetPagination(): void {
@@ -65,21 +62,18 @@ export class CoursesComponent implements OnInit, OnDestroy {
         });
   }
 
-  ngOnDestroy(): void {
-    this.coursesSubscription.forEach(subscription => subscription.unsubscribe());
-  }
-
   onDeleteItem(event: any): void {
     this.modalService.openConfirm(`Do you really want to delete #${event.id} course`).then(
         () => {
           this.loaderBlockService.show();
 
-          this.coursesSubscription.push(
-            this.coursesService
-                .removeItem(event.id)
-                .subscribe(() => this.getCoursesList()
-                .add(() => this.loaderBlockService.hide()))
-          );
+          this.coursesService
+              .removeItem(event.id)
+              .subscribe(
+                  () => this.getCoursesList(),
+                  null,
+                  () => this.loaderBlockService.hide()
+              );
 
           this.cd.markForCheck();
         },
@@ -95,6 +89,6 @@ export class CoursesComponent implements OnInit, OnDestroy {
 
   onPageChange(page: number): void {
     this.currentPage = page;
-    this.coursesSubscription.push(this.getCoursesList());
+    this.getCoursesList();
   }
 }

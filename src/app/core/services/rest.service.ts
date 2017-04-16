@@ -17,4 +17,8 @@ export class RestService {
   delete(url: string, options?: RequestOptionsArgs): Observable<any> {
     return this.authorizedHttp.delete(url, options).map((resp: Response) => resp.json());
   }
+
+  post(url: string, data?: Object, options?: RequestOptionsArgs): Observable<any> {
+    return this.authorizedHttp.post(url, data, options).map((resp: Response) => resp.json());
+  }
 }

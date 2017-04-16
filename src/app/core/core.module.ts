@@ -42,8 +42,10 @@ import {
     LocalStorageService,
     {
       provide: AuthorizedHttp,
-      useFactory: (backend: XHRBackend, defaultOptions: RequestOptions) => new AuthorizedHttp(backend, defaultOptions),
-      deps: [XHRBackend, RequestOptions]
+      useFactory: (backend: XHRBackend, defaultOptions: RequestOptions, localStorageService: LocalStorageService) => {
+        return new AuthorizedHttp(backend, defaultOptions, localStorageService);
+      },
+      deps: [XHRBackend, RequestOptions, LocalStorageService]
     },
     RestService
   ],
