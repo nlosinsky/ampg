@@ -1,13 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const url = require('url');
+const helpers = require('./courses.helpers');
 
-function filterOldCourses(courses) {
-    const millisecondInOneDay = 86400000;
-    const fourteenDaysDiff = new Date().getTime() - 14 * millisecondInOneDay;
-
-    return courses.filter(el => new Date(el.date) >= new Date(fourteenDaysDiff));
-}
 
 module.exports = (server) => {
 
@@ -18,10 +13,11 @@ module.exports = (server) => {
 		let to = +query.start + +query.count;
 		const sort = query.sort;
 		const queryStr = query.query;
-		let courses = filterOldCourses(server.db.getState().courses);
+		let courses = helpers.filterOldCourses(server.db.getState().courses);
 
+		courses = helpers.searchAction(courses, queryStr);
 
-		const coursesCount = courses.length;
+        const coursesCount = courses.length;
 
 		if (courses.length < to) {
 		  	to = courses.length;

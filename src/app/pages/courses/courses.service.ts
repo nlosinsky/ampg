@@ -14,11 +14,12 @@ export class CoursesService {
       private http: RestService
   ) {}
 
-  getList(start: number, count: number): Observable<{courses: CourseItem[], coursesCount: number}> {
+  getList(start: number, count: number, phrase: string): Observable<{courses: CourseItem[], coursesCount: number}> {
     const params = new URLSearchParams();
 
     params.set('start', (start - 1).toString());
     params.set('count', count.toString());
+    params.set('query', phrase);
 
     return this.http.get(EndpointsConstant.COURSES.ALL, { search: params })
       .map((data) => {

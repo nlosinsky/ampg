@@ -10,16 +10,12 @@ import { Subscription } from 'rxjs';
 import { CourseItem } from '../../core/entities';
 import { CoursesService } from './courses.service';
 import { LoaderBlockService, ModalService } from '../../core/components';
-import { FilterPipe } from '../../core/pipes';
 
 @Component({
   selector: 'courses',
   templateUrl: 'courses.template.html',
   styleUrls: ['courses.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    FilterPipe
-  ]
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class CoursesComponent implements OnInit, OnDestroy {
@@ -27,22 +23,19 @@ export class CoursesComponent implements OnInit, OnDestroy {
   public currentPage: number;
   public itemsPerPage: number;
   public coursesCount: number;
-  private originalCoursesList: CourseItem[];
   private coursesSubscription: Subscription[];
+  private searchPhrase: string;
 
   constructor(
       private coursesService: CoursesService,
       private cd: ChangeDetectorRef,
       private loaderBlockService: LoaderBlockService,
-      private modalService: ModalService,
-      private filterPipe: FilterPipe
+      private modalService: ModalService
   ) {
     this.coursesList = [];
-    this.originalCoursesList = [];
     this.coursesSubscription = [];
-    this.currentPage = 1;
-    this.itemsPerPage = 5;
-    this.coursesCount = 0;
+    
+    this.resetPagination();
   }
 
   ngOnInit(): void {
@@ -50,9 +43,15 @@ export class CoursesComponent implements OnInit, OnDestroy {
 
     this.coursesSubscription.push(this.getCoursesList());
   }
+  
+  private resetPagination(): void {
+    this.currentPage = 1;
+    this.itemsPerPage = 5;
+    this.coursesCount = 0;
+  }
 
   private getCoursesList(): Subscription {
-    return this.coursesService.getList(this.currentPage, this.itemsPerPage)
+    return this.coursesService.getList(this.currentPage, this.itemsPerPage, this.searchPhrase)
         .subscribe((data: {courses: CourseItem[], coursesCount: number}) => {
           if (!data) {
             return;
@@ -62,7 +61,6 @@ export class CoursesComponent implements OnInit, OnDestroy {
 
           this.coursesCount = coursesCount;
           this.coursesList = courses;
-          this.originalCoursesList = courses;
           this.cd.markForCheck();
         });
   }
@@ -89,8 +87,10 @@ export class CoursesComponent implements OnInit, OnDestroy {
     );
   }
 
-  findCourses(event: string): void {
-    this.coursesList = this.filterPipe.transform(this.originalCoursesList, event);
+  findCourses(phrase: string): void {
+    this.searchPhrase = phrase;
+    this.resetPagination();
+    this.getCoursesList();
   }
 
   onPageChange(page: number): void {
