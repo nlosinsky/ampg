@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, ReplaySubject } from 'rxjs';
+
 import { User } from '../entities/user';
+import { LSConstants } from '../constants';
 import { LocalStorageService } from './local-storage-service';
 import { LoaderBlockService } from '../components/loader-block';
 
 @Injectable()
 export class AuthService {
-  private COURSE_USER: string = 'coursesUser';
-  private COURSE_TOKEN: string = 'coursesToken';
   public userInfo: ReplaySubject<User|Object> = new ReplaySubject();
   public authChanged: BehaviorSubject<boolean> = new BehaviorSubject(this.isAuthenticated());
 
@@ -21,8 +21,8 @@ export class AuthService {
   login(user: User, token: string): void {
     this.loaderBlockService.show();
 
-    this.localStorageService.set(this.COURSE_USER, user);
-    this.localStorageService.set(this.COURSE_TOKEN, token);
+    this.localStorageService.set(LSConstants.COURSES_USER, user);
+    this.localStorageService.set(LSConstants.COURSES_TOKEN, token);
 
     setTimeout(
         () => {
@@ -41,8 +41,8 @@ export class AuthService {
   logout(): void {
     this.loaderBlockService.show();
 
-    this.localStorageService.remove(this.COURSE_USER);
-    this.localStorageService.remove(this.COURSE_TOKEN);
+    this.localStorageService.remove(LSConstants.COURSES_USER);
+    this.localStorageService.remove(LSConstants.COURSES_TOKEN);
 
     setTimeout(
         () => {
@@ -58,10 +58,13 @@ export class AuthService {
   }
 
   private isAuthenticated(): boolean {
-    return Boolean(this.localStorageService.get(this.COURSE_USER) && this.localStorageService.get(this.COURSE_TOKEN));
+    return Boolean(
+        this.localStorageService.get(LSConstants.COURSES_USER) &&
+        this.localStorageService.get(LSConstants.COURSES_TOKEN)
+    );
   }
 
   private getUserInfo(): User|Object {
-    return this.localStorageService.get(this.COURSE_USER) || {};
+    return this.localStorageService.get(LSConstants.COURSES_USER) || {};
   }
 }
