@@ -14,7 +14,8 @@ import {
     LoaderBlockService,
     DateInputComponent,
     InputInMinutesComponent,
-    ModalModule
+    ModalModule,
+    PaginationComponent
 } from './components';
 import {
     AuthService,
@@ -55,7 +56,8 @@ import {
     OrderByPipe,
     FilterPipe,
     DateInputComponent,
-    InputInMinutesComponent
+    InputInMinutesComponent,
+    PaginationComponent
   ],
   declarations: [
     FooterComponent,
@@ -68,7 +70,8 @@ import {
     OrderByPipe,
     FilterPipe,
     DateInputComponent,
-    InputInMinutesComponent
+    InputInMinutesComponent,
+    PaginationComponent
   ]
 })
 

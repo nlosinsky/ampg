@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs';
 
 import { CourseItem } from '../../core/entities';
@@ -13,17 +14,26 @@ export class CoursesService {
       private http: RestService
   ) {}
 
-  getList(): Observable<CourseItem[]> {
-    const millisecondInOneDay = 86400000;
-    const fourteenDaysDiff = new Date().getTime() - 14 * millisecondInOneDay;
+  getList(start: number, count: number): Observable<{courses: CourseItem[], coursesCount: number}> {
+    const params = new URLSearchParams();
 
-    return this.http.get(EndpointsConstant.COURSES.ALL)
-        .map((arr) => {
-          return arr.map(({ id, shortDescription, duration, date, name, type, isTopRated }) => {
-            return new CourseItem(id, shortDescription, duration, new Date(date), name, type, isTopRated);
-          });
-        })
-        .map(item => item.filter(el => (el.date >= new Date(fourteenDaysDiff))));
+    params.set('start', (start - 1).toString());
+    params.set('count', count.toString());
+
+    return this.http.get(EndpointsConstant.COURSES.ALL, { search: params })
+      .map((data) => {
+        const courses = data.courses.map(({ id, shortDescription, duration, date, name, type, isTopRated }) => {
+          return new CourseItem(id, shortDescription, duration, new Date(date), name, type, isTopRated);
+        });
+
+        return { courses, coursesCount: data.coursesCount };
+      });
+  }
+
+  removeItem(id: number): Observable<CourseItem[]> {
+    const url = [EndpointsConstant.COURSES.ALL, id].join('/');
+
+    return this.http.delete(url);
   }
 
   createCourse(course: CourseItem): void {
@@ -33,14 +43,5 @@ export class CoursesService {
   }
 
   updateItem(course: CourseItem): void {
-    const index = this.courses.findIndex(el => el.id === course.id);
-
-    this.courses[index] = course;
-  }
-
-  removeItem(id: number): Observable<CourseItem[]> {
-    const url = [EndpointsConstant.COURSES.ALL, id].join('/');
-
-    return this.http.delete(url);
   }
 }

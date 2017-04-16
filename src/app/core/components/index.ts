@@ -7,3 +7,4 @@ export * from './loader-block';
 export * from './date-input';
 export * from './input-in-minutes';
 export * from './modal';
+export * from './pagination';

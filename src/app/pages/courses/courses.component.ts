@@ -24,6 +24,9 @@ import { FilterPipe } from '../../core/pipes';
 
 export class CoursesComponent implements OnInit, OnDestroy {
   public coursesList: CourseItem[];
+  public currentPage: number;
+  public itemsPerPage: number;
+  public coursesCount: number;
   private originalCoursesList: CourseItem[];
   private coursesSubscription: Subscription[];
 
@@ -37,6 +40,9 @@ export class CoursesComponent implements OnInit, OnDestroy {
     this.coursesList = [];
     this.originalCoursesList = [];
     this.coursesSubscription = [];
+    this.currentPage = 1;
+    this.itemsPerPage = 5;
+    this.coursesCount = 0;
   }
 
   ngOnInit(): void {
@@ -46,15 +52,19 @@ export class CoursesComponent implements OnInit, OnDestroy {
   }
 
   private getCoursesList(): Subscription {
-    return this.coursesService.getList().subscribe((data: CourseItem[]) => {
-      if (!data) {
-        return;
-      }
+    return this.coursesService.getList(this.currentPage, this.itemsPerPage)
+        .subscribe((data: {courses: CourseItem[], coursesCount: number}) => {
+          if (!data) {
+            return;
+          }
 
-      this.coursesList = data;
-      this.originalCoursesList = data;
-      this.cd.markForCheck();
-    });
+          const { courses, coursesCount } = data;
+
+          this.coursesCount = coursesCount;
+          this.coursesList = courses;
+          this.originalCoursesList = courses;
+          this.cd.markForCheck();
+        });
   }
 
   ngOnDestroy(): void {
@@ -81,5 +91,10 @@ export class CoursesComponent implements OnInit, OnDestroy {
 
   findCourses(event: string): void {
     this.coursesList = this.filterPipe.transform(this.originalCoursesList, event);
+  }
+
+  onPageChange(page: number): void {
+    this.currentPage = page;
+    this.coursesSubscription.push(this.getCoursesList());
   }
 }
