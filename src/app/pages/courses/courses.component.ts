@@ -63,17 +63,17 @@ export class CoursesComponent implements OnInit {
   }
 
   onDeleteItem(event: any): void {
-    this.modalService.openConfirm(`Do you really want to delete #${event.id} course`).then(
+    this.modalService.openConfirm(`Do you really want to delete #${event.id} course`).subscribe(
         () => {
           this.loaderBlockService.show();
 
           this.coursesService
-              .removeItem(event.id)
-              .subscribe(
-                  () => this.getCoursesList(),
-                  null,
-                  () => this.loaderBlockService.hide()
-              );
+            .removeItem(event.id)
+            .subscribe(
+              () => this.getCoursesList(),
+              null,
+              () => this.loaderBlockService.hide()
+            );
 
           this.cd.markForCheck();
         },

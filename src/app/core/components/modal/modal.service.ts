@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { Observable } from 'rxjs';
 
 import { ConfirmModalComponent } from './confirm-modal';
 
@@ -13,12 +14,12 @@ export class ModalService {
     return this.ngbModal.open(content);
   }
 
-  openConfirm(message: string): Promise<any> {
+  openConfirm(message: string): Observable<any> {
     const modalRef = this.open(ConfirmModalComponent);
 
     modalRef.componentInstance.message = message;
 
-    return modalRef.result;
+    return Observable.fromPromise(modalRef.result);
   }
 
 }
