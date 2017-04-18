@@ -11,7 +11,7 @@ export class CoursesService {
   private courses: CourseItem[];
 
   constructor(
-      private http: RestService
+      private restService: RestService
   ) {}
 
   getList(start: number, count: number, phrase: string): Observable<{courses: CourseItem[], coursesCount: number}> {
@@ -21,7 +21,7 @@ export class CoursesService {
     params.set('count', count.toString());
     params.set('query', phrase);
 
-    return this.http.get(EndpointsConstant.COURSES.ALL, { search: params })
+    return this.restService.get(EndpointsConstant.COURSES.ALL, { search: params })
       .map((data) => {
         const courses = data.courses.map(({ id, shortDescription, duration, date, name, type, isTopRated }) => {
           return new CourseItem(id, shortDescription, duration, new Date(date), name, type, isTopRated);
@@ -34,7 +34,7 @@ export class CoursesService {
   removeItem(id: number): Observable<CourseItem[]> {
     const url = [EndpointsConstant.COURSES.ALL, id].join('/');
 
-    return this.http.delete(url);
+    return this.restService.delete(url);
   }
 
   createCourse(course: CourseItem): void {
