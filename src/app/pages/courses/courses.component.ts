@@ -29,15 +29,14 @@ export class CoursesComponent implements OnInit {
       private cd: ChangeDetectorRef,
       private loaderBlockService: LoaderBlockService,
       private modalService: ModalService
-  ) {
-    this.coursesList = [];
-    
-    this.resetPagination();
-  }
+  ) {}
 
   ngOnInit(): void {
     console.info('CoursesComponent initialised');
 
+    this.coursesList = [];
+
+    this.resetPagination();
     this.getCoursesList();
   }
   
@@ -49,11 +48,8 @@ export class CoursesComponent implements OnInit {
 
   private getCoursesList(): Subscription {
     return this.coursesService.getList(this.currentPage, this.itemsPerPage, this.searchPhrase)
+        .filter(data => !!data)
         .subscribe((data: {courses: CourseItem[], coursesCount: number}) => {
-          if (!data) {
-            return;
-          }
-
           const { courses, coursesCount } = data;
 
           this.coursesCount = coursesCount;
@@ -63,22 +59,17 @@ export class CoursesComponent implements OnInit {
   }
 
   onDeleteItem(event: any): void {
-    this.modalService.openConfirm(`Do you really want to delete #${event.id} course`).subscribe(
-        () => {
-          this.loaderBlockService.show();
-
-          this.coursesService
-            .removeItem(event.id)
-            .subscribe(
-              () => this.getCoursesList(),
-              null,
-              () => this.loaderBlockService.hide()
-            );
-
-          this.cd.markForCheck();
-        },
-        reason => console.warn(reason)
-    );
+    this.modalService.openConfirm(`Do you really want to delete #${event.id} course`)
+        .do(
+            () => this.loaderBlockService.show(),
+            reason => console.warn(reason)
+        )
+        .flatMap(() => this.coursesService.removeItem(event.id))
+        .finally(() => this.loaderBlockService.hide())
+        .subscribe(
+            () => this.getCoursesList(),
+            err => console.log(err)
+        );
   }
 
   findCourses(phrase: string): void {

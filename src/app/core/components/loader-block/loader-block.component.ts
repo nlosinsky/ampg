@@ -15,11 +15,11 @@ export class LoaderBlockComponent implements OnInit, OnDestroy {
   constructor(
       private loaderBlockService: LoaderBlockService,
       private cd: ChangeDetectorRef
-  ) {
-    this.show = false;
-  }
+  ) {}
 
   ngOnInit(): void {
+    this.show = false;
+
     this.loaderBlockService.loaderIsShown
         .takeUntil(this.ngUnsubscribe)
         .subscribe((show) => {

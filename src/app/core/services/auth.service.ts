@@ -24,27 +24,20 @@ export class AuthService {
     this.loaderBlockService.show();
 
     this.restService.post(EndpointsConstant.AUTH.LOGIN, { login, password })
+        .do(({ token }) => {
+          this.localStorageService.set(LSConstants.COURSES_TOKEN, token);
+          this.authChanged.next(true);
+        })
+        .flatMap(() => this.restService.get(EndpointsConstant.AUTH.USER_INFO))
+        .finally(() => this.loaderBlockService.hide())
         .subscribe(
-            ({ token }) => {
-              this.localStorageService.set(LSConstants.COURSES_TOKEN, token);
-              this.authChanged.next(true);
+            ({ id, login, name }) => {
+              const user = new User(id, login, name);
 
-              this.restService.get(EndpointsConstant.AUTH.USER_INFO)
-                  .subscribe(
-                      ({ id, login, name }) => {
-                        const user = new User(id, login, name);
-
-                        this.userInfo.next(user);
-                        this.localStorageService.set(LSConstants.COURSES_USER, user);
-                      },
-                      null,
-                      () => this.loaderBlockService.hide()
-                  );
+              this.userInfo.next(user);
+              this.localStorageService.set(LSConstants.COURSES_USER, user);
             },
-            () => {
-              this.authChanged.next(false);
-              this.loaderBlockService.hide();
-            }
+            () => this.authChanged.next(false)
         );
   }
 

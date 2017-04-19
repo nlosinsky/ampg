@@ -19,12 +19,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(
         private authService: AuthService,
         private cd: ChangeDetectorRef
-    ) {
-    this.isAuth = false;
-  }
+    ) {}
 
   ngOnInit(): void {
     console.info('HeaderComponent initialised');
+
+    this.isAuth = false;
 
     this.authService.authChanged
         .takeUntil(this.ngUnsubscribe)

@@ -17,13 +17,13 @@ export class LoginComponent implements OnInit, OnDestroy {
       private authService: AuthService,
       private cd: ChangeDetectorRef,
       private router: Router
-  ) {
-    this.login = '';
-    this.password = '';
-  }
+  ) {}
 
   ngOnInit(): void {
     console.info('LoginComponent initialised');
+
+    this.login = '';
+    this.password = '';
 
     this.authService.authChanged
         .takeUntil(this.ngUnsubscribe)
