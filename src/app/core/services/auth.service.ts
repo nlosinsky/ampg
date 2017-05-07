@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, ReplaySubject } from 'rxjs';
 
-import { User } from '../entities/user';
+import { User, Login } from '../entities';
 import { LSConstants, EndpointsConstant } from '../constants';
 import { LocalStorageService } from './local-storage-service';
 import { LoaderBlockService } from '../components/loader-block';
@@ -20,7 +20,7 @@ export class AuthService {
     this.userInfo.next(this.getUserInfo());
   }
 
-  login(login: string, password: string): void {
+  login({ login, password }: Login): void {
     this.loaderBlockService.show();
 
     this.restService.post(EndpointsConstant.AUTH.LOGIN, { login, password })

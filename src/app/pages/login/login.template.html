@@ -1,13 +1,25 @@
-<div class="form">
+<form class="form" #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)" novalidate>
     <div class="form__row">
         <label for="login">Login</label>
-        <input id="login" type="text" placeholder="Login" name="login" [(ngModel)]="login">
+        <input
+            id="login"
+            type="text"
+            placeholder="Login"
+            name="login"
+            [ngModel]="loginForm.login"
+            required>
     </div>
     <div class="form__row">
         <label for="password">Password</label>
-        <input id="password" type="password" name="pass" placeholder="Password" [(ngModel)]="password">
+        <input
+            id="password"
+            type="password"
+            name="password"
+            placeholder="Password"
+            [ngModel]="loginForm.password"
+            required>
     </div>
     <div class="form__row form__buttons">
-        <button (click)="submit()">Enter</button>
+        <button type="submit" [disabled]="loginForm.invalid">Enter</button>
     </div>
-</div>
+</form>
