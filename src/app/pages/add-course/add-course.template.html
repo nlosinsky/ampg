@@ -1,22 +1,25 @@
-<div class="form">
+<form class="form" [formGroup]="addCourseForm" (ngSubmit)="onSubmit()" novalidate>
     <div class="form__row">
         <label>Title</label>
-        <input type="text">
+        <input type="text" formControlName="title">
     </div>
     <div class="form__row">
         <label>Description</label>
-        <textarea></textarea>
+        <textarea formControlName="description"></textarea>
     </div>
-    <div class="form__row">
-        <label>Date</label>
-        <date-input></date-input>
-    </div>
+    <!--<div class="form__row">-->
+        <!--<label>Date</label>-->
+        <!--<date-input  formControlName="date"></date-input>-->
+    <!--</div>-->
     <div class="form__row">
         <label>Duration</label>
-        <input-in-minutes></input-in-minutes>
+        <input-in-minutes formControlName="duration"></input-in-minutes>
     </div>
+    <!--{{addCourseForm.value | json}}-->
+    <!--{{addCourseForm.valid}}-->
+
     <div class="form__row form__buttons">
-        <button (click)="save()">Save</button>
+        <button type="submit" [disabled]="addCourseForm.invalid">Save</button>
         <button (click)="cancel()">Cancel</button>
     </div>
-</div>
+</form>

@@ -1,2 +1,7 @@
-<input type="text" [(ngModel)]="minutes">
+<input
+		type="text"
+		[value]="minutes"
+		(change)="onChange($event)"
+		(keyup)="onChange($event)"
+>
 <span>{{ minutes | minutesToHours}}</span>
