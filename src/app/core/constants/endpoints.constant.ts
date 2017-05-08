@@ -7,5 +7,8 @@ export const EndpointsConstant = {
   AUTH: {
     LOGIN: `${HOST}/auth/login`,
     USER_INFO: `${HOST}/auth/userInfo`
+  },
+  AUTHORS: {
+    ALL: `${HOST}/authors`
   }
 };

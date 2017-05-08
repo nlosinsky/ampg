@@ -15,7 +15,8 @@ import {
     DateInputComponent,
     InputInMinutesComponent,
     ModalModule,
-    PaginationComponent
+    PaginationComponent,
+    AuthorsListComponent
 } from './components';
 import {
     AuthService,
@@ -59,7 +60,8 @@ import {
     FilterPipe,
     DateInputComponent,
     InputInMinutesComponent,
-    PaginationComponent
+    PaginationComponent,
+    AuthorsListComponent
   ],
   declarations: [
     FooterComponent,
@@ -73,7 +75,8 @@ import {
     FilterPipe,
     DateInputComponent,
     InputInMinutesComponent,
-    PaginationComponent
+    PaginationComponent,
+    AuthorsListComponent
   ]
 })
 

@@ -8,3 +8,4 @@ export * from './date-input';
 export * from './input-in-minutes';
 export * from './modal';
 export * from './pagination';
+export * from './authors-list';

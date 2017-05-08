@@ -15,11 +15,13 @@
         <label>Duration</label>
         <input-in-minutes formControlName="duration"></input-in-minutes>
     </div>
-    <!--{{addCourseForm.value | json}}-->
-    <!--{{addCourseForm.valid}}-->
+		<div class="form__row">
+			<label>Authors</label>
+			<authors-list [authorsList]="authorsList" formControlName="authors"></authors-list>
+		</div>
 
     <div class="form__row form__buttons">
         <button type="submit" [disabled]="addCourseForm.invalid">Save</button>
-        <button (click)="cancel()">Cancel</button>
+        <button (click)="onCancel()">Cancel</button>
     </div>
 </form>
