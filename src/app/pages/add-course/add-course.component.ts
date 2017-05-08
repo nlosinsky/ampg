@@ -17,10 +17,10 @@ export class AddCourseComponent implements OnInit {
     console.info('AddCourseComponent initialised');
 
     this.addCourseForm = this.fb.group({
-      title: ['2', [Validators.required, Validators.maxLength(50)]],
-      description: ['2', [Validators.required, Validators.maxLength(500)]],
-      // date: ['2', [Validators.required]],
-      duration: ['sdsd', [Validators.required]]
+      title: ['', [Validators.required, Validators.maxLength(50)]],
+      description: ['', [Validators.required, Validators.maxLength(500)]],
+      date: [null, [Validators.required]],
+      duration: [null, [Validators.required]]
     });
   }
 
