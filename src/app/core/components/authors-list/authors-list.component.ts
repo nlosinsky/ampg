@@ -1,6 +1,7 @@
 import {
   Component,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Input,
   forwardRef
 } from '@angular/core';
@@ -38,7 +39,9 @@ export class AuthorsListComponent implements ControlValueAccessor, Validator {
   @Input() authorsList: CourseAuthor[];
   selectedAuthors: CourseAuthor[];
 
-  constructor() {
+  constructor(
+      private cd: ChangeDetectorRef
+  ) {
     this.selectedAuthors = [];
   }
 
@@ -61,7 +64,15 @@ export class AuthorsListComponent implements ControlValueAccessor, Validator {
     return c.value.length ? null : { minSelectedAuthorsError: { valid: false } };
   }
 
-  writeValue(value: any): void {}
+  writeValue(value: any): void {
+    this.selectedAuthors = value;
+
+    this.cd.markForCheck();
+  }
+
+  isChecked(author: CourseAuthor): boolean {
+    return this.selectedAuthors.some(el => el.id === author.id);
+  }
 
   registerOnChange(fn: any): void {
     this.propagateChange = fn;

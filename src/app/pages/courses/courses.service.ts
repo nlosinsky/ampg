@@ -32,7 +32,7 @@ export class CoursesService {
   }
 
   removeItem(id: number): Observable<CourseItem[]> {
-    const url = [EndpointsConstant.COURSES.ALL, id].join('/');
+    const url = EndpointsConstant.COURSES.SINGLE.replace(/:id/, id.toString());
 
     return this.restService.delete(url);
   }

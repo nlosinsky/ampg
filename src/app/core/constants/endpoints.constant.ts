@@ -1,14 +1,13 @@
-const HOST = 'http://localhost:3004';
-
 export const EndpointsConstant = {
   COURSES: {
-    ALL: `${HOST}/courses`
+    ALL: `/courses`,
+    SINGLE: `/courses/:id`
   },
   AUTH: {
-    LOGIN: `${HOST}/auth/login`,
-    USER_INFO: `${HOST}/auth/userInfo`
+    LOGIN: `/auth/login`,
+    USER_INFO: `/auth/userInfo`
   },
   AUTHORS: {
-    ALL: `${HOST}/authors`
+    ALL: `/authors`
   }
 };

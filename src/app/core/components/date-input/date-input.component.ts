@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, forwardRef } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, forwardRef } from '@angular/core';
 import {
   ControlValueAccessor,
   FormControl,
@@ -31,11 +31,14 @@ export class DateInputComponent implements ControlValueAccessor, Validator {
   date: string;
   validObj: Object;
 
-  constructor() {}
+  constructor(
+      private cd: ChangeDetectorRef
+  ) {}
 
   writeValue(value: any): void {
     if (value !== undefined) {
       this.date = value;
+      this.cd.markForCheck();
     }
   }
 

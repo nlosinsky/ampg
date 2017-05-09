@@ -13,6 +13,9 @@ import { CoreModule } from '../../core';
   ],
   declarations: [
     AddCourseComponent
+  ],
+  exports: [
+    AddCourseComponent
   ]
 })
 export class AddCourseModule {

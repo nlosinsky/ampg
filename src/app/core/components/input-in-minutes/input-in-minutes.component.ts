@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, forwardRef } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, forwardRef } from '@angular/core';
 import {
   ControlValueAccessor,
   NG_VALUE_ACCESSOR,
@@ -29,11 +29,14 @@ import { validateNumberType } from '../../validators';
 export class InputInMinutesComponent implements ControlValueAccessor, Validator {
   minutes: string;
 
-  constructor() {}
+  constructor(
+      private cd: ChangeDetectorRef
+  ) {}
 
   writeValue(value: any): void {
     if (value !== undefined) {
       this.minutes = value;
+      this.cd.markForCheck();
     }
   }
 

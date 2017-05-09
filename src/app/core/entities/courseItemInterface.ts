@@ -1,3 +1,5 @@
+import { CourseAuthor } from './course-author';
+
 export  interface CourseItemInterface {
   id: number;
   shortDescription: string;
@@ -6,4 +8,5 @@ export  interface CourseItemInterface {
   name: string;
   type: string;
   isTopRated: boolean;
+  authors?: CourseAuthor[];
 }
