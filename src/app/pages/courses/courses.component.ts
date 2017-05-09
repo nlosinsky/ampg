@@ -1,10 +1,11 @@
 import {
   Component,
   OnInit,
+  OnDestroy,
   ChangeDetectionStrategy,
   ChangeDetectorRef
 } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, Subject } from 'rxjs';
 
 import { CourseItem } from '../../core/entities';
 import { CoursesService } from './courses.service';
@@ -17,12 +18,13 @@ import { LoaderBlockService, ModalService } from '../../core/components';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class CoursesComponent implements OnInit {
+export class CoursesComponent implements OnInit, OnDestroy {
   public coursesList: CourseItem[];
   public currentPage: number;
   public itemsPerPage: number;
   public coursesCount: number;
   private searchPhrase: string;
+  private ngUnsubscribe: Subject<void> = new Subject<void>();
 
   constructor(
       private coursesService: CoursesService,
@@ -38,6 +40,11 @@ export class CoursesComponent implements OnInit {
 
     this.resetPagination();
     this.getCoursesList();
+  }
+
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
   
   private resetPagination(): void {
@@ -60,6 +67,7 @@ export class CoursesComponent implements OnInit {
 
   onDeleteItem(event: any): void {
     this.modalService.openConfirm(`Do you really want to delete #${event.id} course`)
+        .takeUntil(this.ngUnsubscribe)
         .do(
             () => this.loaderBlockService.show(),
             reason => console.warn(reason)
