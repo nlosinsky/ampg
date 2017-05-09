@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { Location } from '@angular/common';
 
 import { CourseAuthor } from '../../core/entities';
 import { EndpointsConstant } from '../../core/constants';
@@ -18,7 +19,8 @@ export class AddCourseComponent implements OnInit {
   constructor(
       private fb: FormBuilder,
       private restService: RestService,
-      private cd: ChangeDetectorRef
+      private cd: ChangeDetectorRef,
+      private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -43,6 +45,6 @@ export class AddCourseComponent implements OnInit {
   }
 
   onCancel(): void {
-    this.addCourseForm.reset();
+    this.location.back();
   }
 }

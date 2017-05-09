@@ -43,8 +43,13 @@ export class DateInputComponent implements ControlValueAccessor, Validator {
     this.propagateChange = fn;
   }
 
+  registerOnTouched(fn: any): void {
+    this.propagateTouch = fn;
+  };
+
   onChange({ target }: { target: HTMLInputElement }): void {
     this.propagateChange(target.value);
+    this.propagateTouch();
   }
 
   onBlur({ target }: { target: HTMLInputElement }): void {
@@ -52,6 +57,7 @@ export class DateInputComponent implements ControlValueAccessor, Validator {
 
     this.writeValue(value);
     this.propagateChange(value);
+    this.propagateTouch();
   }
 
   validate(c: FormControl): Object {
@@ -61,6 +67,5 @@ export class DateInputComponent implements ControlValueAccessor, Validator {
   }
 
   propagateChange = (_: any) => { };
-
-  registerOnTouched(fn: any): void {};
+  propagateTouch = () => { };
 }

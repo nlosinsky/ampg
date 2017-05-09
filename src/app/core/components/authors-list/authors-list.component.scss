@@ -24,3 +24,7 @@
     }
   }
 }
+
+:host.ng-invalid.ng-touched > .authors-list {
+  border: 1px solid #a94442;
+}

@@ -1,27 +1,77 @@
 <form class="form" [formGroup]="addCourseForm" (ngSubmit)="onSubmit()" novalidate>
     <div class="form__row">
         <label>Title</label>
-        <input type="text" formControlName="title">
+        <div>
+            <input type="text" formControlName="title">
+            <div *ngIf="addCourseForm.get('title').touched">
+                <div class="error" *ngIf="addCourseForm.get('title').hasError('required')">
+                    * Title is required
+                </div>
+                <div class="error" *ngIf="addCourseForm.get('title').hasError('maxlength')">
+                    * Maximum of {{addCourseForm.controls.title?.errors.maxlength.requiredLength}} symbols allowed
+                </div>
+            </div>
+        </div>
     </div>
     <div class="form__row">
         <label>Description</label>
-        <textarea formControlName="description"></textarea>
+        <div>
+            <textarea formControlName="description"></textarea>
+            <div *ngIf="addCourseForm.get('description').touched">
+                <div class="error" *ngIf="addCourseForm.get('description').hasError('required')">
+                    * Description is required
+                </div>
+                <div class="error" *ngIf="addCourseForm.get('description').hasError('maxlength')">
+                    * Maximum of {{addCourseForm.controls.description?.errors.maxlength.requiredLength}} symbols allowed
+                </div>
+            </div>
+        </div>
     </div>
     <div class="form__row">
         <label>Date</label>
-        <date-input formControlName="date"></date-input>
+        <div>
+            <date-input formControlName="date"></date-input>
+            <div *ngIf="addCourseForm.get('date').touched">
+                <div class="error" *ngIf="addCourseForm.get('date').hasError('required')">
+                    * Date is required
+                </div>
+                <div class="error" *ngIf="addCourseForm.get('date').hasError('dateFormatError')">
+                    * Date format should be dd/MM/yyyy
+                </div>
+            </div>
+        </div>
     </div>
     <div class="form__row">
         <label>Duration</label>
-        <input-in-minutes formControlName="duration"></input-in-minutes>
+        <div>
+            <input-in-minutes formControlName="duration"></input-in-minutes>
+            <div *ngIf="addCourseForm.get('duration').touched">
+                <div class="error" *ngIf="addCourseForm.get('duration').hasError('required')">
+                    * Duration is required
+                </div>
+                <div class="error" *ngIf="addCourseForm.get('duration').hasError('numberTypeError')">
+                    * Only numbers allowed
+                </div>
+            </div>
+        </div>
     </div>
 		<div class="form__row">
-			<label>Authors</label>
-			<authors-list [authorsList]="authorsList" formControlName="authors"></authors-list>
+			  <label>Authors</label>
+        <div>
+            <authors-list [authorsList]="authorsList" formControlName="authors"></authors-list>
+            <div *ngIf="addCourseForm.get('authors').touched">
+                <div class="error" *ngIf="addCourseForm.get('authors').hasError('required')">
+                    * Authors is required
+                </div>
+                <div class="error" *ngIf="addCourseForm.get('authors').hasError('minSelectedAuthorsError')">
+                    * At least one author should be selected
+                </div>
+            </div>
+        </div>
 		</div>
 
     <div class="form__row form__buttons">
         <button type="submit" [disabled]="addCourseForm.invalid">Save</button>
-        <button (click)="onCancel()">Cancel</button>
+        <button type="button" (click)="onCancel()">Cancel</button>
     </div>
 </form>

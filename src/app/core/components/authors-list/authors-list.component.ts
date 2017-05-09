@@ -54,6 +54,7 @@ export class AuthorsListComponent implements ControlValueAccessor, Validator {
     }
 
     this.propagateChange(this.selectedAuthors);
+    this.propagateTouch();
   }
 
   validate(c: FormControl): Object {
@@ -66,8 +67,10 @@ export class AuthorsListComponent implements ControlValueAccessor, Validator {
     this.propagateChange = fn;
   }
 
+  registerOnTouched(fn: any): void {
+    this.propagateTouch = fn;
+  };
+
   propagateChange = (_: any) => { };
-
-  registerOnTouched(fn: any): void {};
-
+  propagateTouch = () => { };
 }

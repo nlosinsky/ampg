@@ -41,9 +41,18 @@ export class InputInMinutesComponent implements ControlValueAccessor, Validator 
     this.propagateChange = fn;
   }
 
+  registerOnTouched(fn: any): void {
+    this.propagateTouch = fn;
+  };
+
   onChange({ target }: { target: HTMLInputElement }): void {
     this.writeValue(target.value);
     this.propagateChange(target.value);
+    this.propagateTouch();
+  }
+
+  onBlur(): void {
+    this.propagateTouch();
   }
 
   validate(c: FormControl): Object {
@@ -51,6 +60,5 @@ export class InputInMinutesComponent implements ControlValueAccessor, Validator 
   }
 
   propagateChange = (_: any) => { };
-
-  registerOnTouched(fn: any): void {};
+  propagateTouch = () => { };
 }
