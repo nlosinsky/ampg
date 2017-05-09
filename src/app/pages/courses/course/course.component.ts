@@ -35,6 +35,6 @@ export class CourseComponent implements OnInit {
   }
 
   editCourseItem(id: number): void {
-    this.router.navigate(['edit-course', id]);
+    this.router.navigate(['courses', id]);
   }
 }
