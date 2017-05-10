@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from '../../services';
 import { Subject } from 'rxjs';
 import { User } from '../../entities/user';
@@ -18,7 +19,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   constructor(
         private authService: AuthService,
-        private cd: ChangeDetectorRef
+        private cd: ChangeDetectorRef,
+        private router: Router
     ) {}
 
   ngOnInit(): void {
@@ -29,7 +31,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.authService.authChanged
         .takeUntil(this.ngUnsubscribe)
         .subscribe((data) => {
+          if (this.isAuth && !data) {
+            this.router.navigate(['/login']);
+          }
+
           this.isAuth = data;
+
           this.cd.markForCheck();
         });
 

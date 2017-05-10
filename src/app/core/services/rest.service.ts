@@ -24,6 +24,10 @@ export class RestService {
     return this.authorizedHttp.post(this.getUrl(url), data, options).map((resp: Response) => resp.json());
   }
 
+  put(url: string, data?: Object, options?: RequestOptionsArgs): Observable<any> {
+    return this.authorizedHttp.put(this.getUrl(url), data, options).map((resp: Response) => resp.json());
+  }
+
   getUrl(url: string): string {
     return `${this.HOST}${url}`;
   }

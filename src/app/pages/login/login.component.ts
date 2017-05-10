@@ -12,10 +12,6 @@ import { Login } from '../../core/entities';
 })
 export class LoginComponent implements OnInit, OnDestroy {
   private ngUnsubscribe: Subject<void> = new Subject<void>();
-  public loginForm: Login = {
-    login: '',
-    password: ''
-  };
 
   constructor(
       private authService: AuthService,

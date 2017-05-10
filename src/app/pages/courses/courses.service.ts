@@ -23,8 +23,10 @@ export class CoursesService {
 
     return this.restService.get(EndpointsConstant.COURSES.ALL, { search: params })
       .map((data) => {
-        const courses = data.courses.map(({ id, shortDescription, duration, date, name, type, isTopRated }) => {
-          return new CourseItem(id, shortDescription, duration, new Date(date), name, type, isTopRated);
+        const courses = data.courses.map((course) => {
+          const { id, shortDescription, duration, date, name, type, isTopRated, authors, longDescription } = course;
+
+          return new CourseItem(shortDescription, duration, new Date(date), name, authors, longDescription, isTopRated, id, type);
         });
 
         return { courses, coursesCount: data.coursesCount };
@@ -37,12 +39,25 @@ export class CoursesService {
     return this.restService.delete(url);
   }
 
-  createCourse(course: CourseItem): void {
+  getItemById(id: number): Observable<CourseItem> {
+    const url = EndpointsConstant.COURSES.SINGLE.replace(/:id/, id.toString());
+
+    return this.restService.get(url);
   }
 
-  getItemById(id: number): void {
+  createCourse(course: any): Observable<number> {
+    const { title, description, date, duration, authors } = course;
+    const courseData = new CourseItem(description, duration, date, title, authors);
+
+    return this.restService.post(EndpointsConstant.COURSES.NEW, courseData);
   }
 
-  updateItem(course: CourseItem): void {
+  updateItem(newCourseData: any, availableCourseData: CourseItem): Observable<CourseItem> {
+    const { title, description, date, duration, authors } = newCourseData;
+    const { id, type, isTopRated, longDescription } = availableCourseData;
+    const courseData = new CourseItem(description, duration, date, title, authors, longDescription, isTopRated, id, type);
+    const url = EndpointsConstant.COURSES.SINGLE.replace(/:id/, id.toString());
+
+    return this.restService.put(url, courseData);
   }
 }

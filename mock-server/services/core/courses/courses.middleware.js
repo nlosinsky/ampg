@@ -29,6 +29,32 @@ module.exports = (server) => {
 		
 		res.json({ courses, coursesCount });
 	});
+
+	router.post('/courses/new', (req, res, next) => {
+		const courses = server.db.getState().courses;
+		const idsArr = courses.map((item) => item.id);
+		const newCourseObj = req.body;
+		let newCourseId;
+
+		generateCourseId();
+
+		function generateCourseId() {
+			const id = Math.floor(Math.random() * 9999);
+
+			if (idsArr.includes(id)) {
+				generateCourseId();
+			} else {
+				newCourseId = id;
+			}
+		}
+
+		newCourseObj.id = newCourseId;
+		server.db.getState().courses.push(newCourseObj);
+
+		res.json(newCourseId);
+	});
+
+
 	
 	return router;
 };

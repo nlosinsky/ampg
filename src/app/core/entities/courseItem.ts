@@ -3,13 +3,14 @@ import { CourseAuthor } from './course-author';
 
 export class CourseItem implements CourseItemInterface {
   constructor(
-        public id: number,
         public shortDescription: string,
         public duration: number,
         public date: Date,
         public name: string,
-        public type: string,
-        public isTopRated: boolean,
-        public authors?: CourseAuthor[]
+        public authors: CourseAuthor[] = [],
+        public longDescription:string = '',
+        public isTopRated: boolean = false,
+        public id?: number,
+        public type?: string
     ) {}
 }
