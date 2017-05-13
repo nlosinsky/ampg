@@ -5,7 +5,7 @@ import { CoursesComponent } from './pages/courses';
 import { EditCourseComponent } from './pages/edit-course';
 import { AddCourseComponent } from './pages/add-course';
 import { LoginComponent } from './pages/login';
-import { NotFoundComponent } from './pages/not-found';
+import { PageNotFoundComponent } from './pages/page-not-found';
 
 const appRoutes: Routes = [
   {
@@ -17,11 +17,17 @@ const appRoutes: Routes = [
       },
       {
         path: 'new',
-        component: AddCourseComponent
+        component: AddCourseComponent,
       },
       {
         path: ':id',
-        component: EditCourseComponent
+        component: EditCourseComponent,
+        data: {
+          breadcrumb: {
+            label: 'Course',
+            pathParam: 'id'
+          }
+        }
       },
     ]
   },
@@ -31,7 +37,7 @@ const appRoutes: Routes = [
   },
   {
     path: '404',
-    component: NotFoundComponent
+    component: PageNotFoundComponent
   },
   {
     path: '',

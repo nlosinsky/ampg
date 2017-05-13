@@ -11,13 +11,13 @@ import { CoreModule } from './core';
 import { CoursesModule } from './pages/courses/courses.module';
 import { EditCourseModule } from './pages/edit-course/edit-course.module';
 import { AddCourseModule } from './pages/add-course/add-course.module';
-import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { LoginModule } from './pages/login/login.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NotFoundComponent
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
