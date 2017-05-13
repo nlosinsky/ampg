@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         .takeUntil(this.ngUnsubscribe)
         .subscribe((isAuth: boolean) => {
           if (isAuth) {
-            this.router.navigate(['/courses']);
+            this.router.navigate(['courses']);
           }
 
           this.cd.markForCheck();

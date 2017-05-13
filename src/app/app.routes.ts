@@ -1,15 +1,19 @@
 import { Routes, RouterModule } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
 
-import { CoursesComponent } from './pages/courses';
-import { EditCourseComponent } from './pages/edit-course';
-import { AddCourseComponent } from './pages/add-course';
-import { LoginComponent } from './pages/login';
-import { PageNotFoundComponent } from './pages/page-not-found';
+import {
+  CoursesComponent,
+  EditCourseComponent,
+  AddCourseComponent,
+  LoginComponent,
+  PageNotFoundComponent
+} from './pages';
+import { AuthGuard } from './core/guards';
 
 const appRoutes: Routes = [
   {
     path: 'courses',
+    canActivate: [AuthGuard],
     children: [
       {
         path: '',

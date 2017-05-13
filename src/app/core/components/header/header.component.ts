@@ -32,7 +32,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         .takeUntil(this.ngUnsubscribe)
         .subscribe((data) => {
           if (this.isAuth && !data) {
-            this.router.navigate(['/login']);
+            this.router.navigate(['login']);
           }
 
           this.isAuth = data;
