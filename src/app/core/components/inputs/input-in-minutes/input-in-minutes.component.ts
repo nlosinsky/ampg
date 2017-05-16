@@ -6,7 +6,7 @@ import {
   Validator, FormControl
 } from '@angular/forms';
 
-import { validateNumberType } from '../../validators';
+import { validateNumberType } from '../../../validators';
 
 @Component({
   selector: 'input-in-minutes',

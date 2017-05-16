@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { AuthService } from '../../services';
+import { AuthService } from '../../../services';
 import { Subject } from 'rxjs';
-import { User } from '../../entities/user';
+import { User } from '../../../entities/user';
 
 @Component({
   selector: 'main-header',

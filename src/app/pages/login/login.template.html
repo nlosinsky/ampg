@@ -20,6 +20,6 @@
             required>
     </div>
     <div class="form__row form__buttons">
-        <button type="submit" [disabled]="loginForm.invalid">Enter</button>
+        <button type="submit" [disabled]="loginForm.invalid || loginForm.pristine">Enter</button>
     </div>
 </form>

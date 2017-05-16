@@ -14,7 +14,7 @@ import {
   Validator
 } from '@angular/forms';
 
-import { CourseAuthor } from '../../entities';
+import { CourseAuthor } from '../../../core/entities';
 
 @Component({
   selector: 'authors-list',
