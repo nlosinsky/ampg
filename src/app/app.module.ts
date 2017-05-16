@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -9,7 +9,7 @@ import { AppComponent } from './app.component';
 import { routes } from './app.routes';
 import { CoreModule } from './core';
 import { CoursesModule } from './pages/courses/courses.module';
-import { CourseDetailsModule } from './pages/course-details/course-details.module';
+import { EditCourseModule } from './pages/edit-course/edit-course.module';
 import { AddCourseModule } from './pages/add-course/add-course.module';
 import { NoContentComponent } from './pages/no-content/no-content.component';
 import { LoginModule } from './pages/login/login.module';
@@ -22,11 +22,12 @@ import { LoginModule } from './pages/login/login.module';
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     CommonModule,
     routes,
     CoursesModule,
-    CourseDetailsModule,
+    EditCourseModule,
     LoginModule,
     CoreModule,
     AddCourseModule,

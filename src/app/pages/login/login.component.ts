@@ -1,7 +1,9 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../core/services';
 import { Subject } from 'rxjs';
+
+import { AuthService } from '../../core/services';
+import { Login } from '../../core/entities';
 
 @Component({
   selector: 'login',
@@ -10,8 +12,10 @@ import { Subject } from 'rxjs';
 })
 export class LoginComponent implements OnInit, OnDestroy {
   private ngUnsubscribe: Subject<void> = new Subject<void>();
-  login: string;
-  password: string;
+  public loginForm: Login = {
+    login: '',
+    password: ''
+  };
 
   constructor(
       private authService: AuthService,
@@ -21,9 +25,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     console.info('LoginComponent initialised');
-
-    this.login = '';
-    this.password = '';
 
     this.authService.authChanged
         .takeUntil(this.ngUnsubscribe)
@@ -41,7 +42,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.ngUnsubscribe.complete();
   }
 
-  submit(): void {
-    this.authService.login(this.login, this.password);
+  onSubmit({ value }: { value: Login }): void {
+    this.authService.login(value);
   }
 }

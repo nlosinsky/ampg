@@ -14,7 +14,7 @@
         <p class="details__short-desc">{{course.shortDescription}}</p>
     </div>
     <div class="course-item__actions">
-        <button>Edit course</button>
+        <button (click)="editCourseItem(course.id)">Edit course</button>
         <button (click)="deleteCourseItem(course.id)">Delete</button>
     </div>
 </div>

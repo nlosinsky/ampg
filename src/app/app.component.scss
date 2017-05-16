@@ -52,7 +52,18 @@ textarea {
   &__row {
     margin-bottom: 15px;
     display: flex;
-    align-items: center;
+    align-items: baseline;
+
+    .error {
+      color: #a94442;
+      font-size: 12px;
+    }
+
+    input.ng-invalid.ng-touched,
+    textarea.ng-invalid.ng-touched,
+    .ng-invalid.ng-touched > input {
+      border: 1px solid #a94442;
+    }
   }
 
   &__buttons {

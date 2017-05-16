@@ -1,0 +1,8 @@
+<input
+		type="text"
+		[value]="minutes"
+		(change)="onChange($event)"
+		(keyup)="onChange($event)"
+		(blur)="onBlur($event)"
+>
+<span>{{ minutes | minutesToHours}}</span>
