@@ -1,0 +1,14 @@
+@import "../../../../styles/variables/colors.scss";
+
+.main-footer {
+	background-color: $c-primary;
+	color: $white;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	z-index: 9999;
+}

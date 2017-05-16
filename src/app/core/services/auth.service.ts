@@ -4,7 +4,7 @@ import { BehaviorSubject, ReplaySubject } from 'rxjs';
 import { User, Login } from '../entities';
 import { LSConstants, EndpointsConstant } from '../constants';
 import { LocalStorageService } from './local-storage-service';
-import { LoaderBlockService } from '../components/loader-block';
+import { LoaderBlockService } from '../components/widgets';
 import { RestService } from './rest.service';
 
 @Injectable()

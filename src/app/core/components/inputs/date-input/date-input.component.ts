@@ -7,7 +7,7 @@ import {
   NG_VALIDATORS
 } from '@angular/forms';
 
-import { validateDateFormat } from '../../validators';
+import { validateDateFormat } from '../../../validators';
 
 @Component({
   selector: 'date-input',

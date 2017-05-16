@@ -1,11 +1,12 @@
-export * from './footer';
-export * from './header';
-export * from './logo';
-export * from './toolbox';
-export * from './breadcrumbs';
-export * from './loader-block';
-export * from './date-input';
-export * from './input-in-minutes';
-export * from './modal';
-export * from './pagination';
-export * from './authors-list';
+export * from './layout/footer';
+export * from './layout/header';
+export * from './layout/logo';
+
+export * from './widgets/toolbox';
+export * from './widgets/breadcrumbs';
+export * from './widgets/loader-block';
+export * from './widgets/modal';
+export * from './widgets/pagination';
+
+export * from './inputs/date-input';
+export * from './inputs/input-in-minutes';
