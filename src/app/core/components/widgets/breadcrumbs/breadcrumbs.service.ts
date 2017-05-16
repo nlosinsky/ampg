@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, PRIMARY_OUTLET, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 
-import { Breadcrumb } from '../../entities';
+import { Breadcrumb } from '../../../entities';
 
 @Injectable()
 export class BreadcrumbsService {
