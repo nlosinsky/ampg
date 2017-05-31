@@ -2,8 +2,8 @@
 
 <h1>Courses Component</h1>
 
-<course *ngFor="let course of coursesList | orderBy: 'date'" [course]="course" (deleteItem)="onDeleteItem($event)"></course>
+<course *ngFor="let course of coursesList$ | async" [course]="course" (deleteItem)="onDeleteItem($event)"></course>
 
-<div *ngIf="!coursesList.length" class="no-data-block">No data. Feel free to add new course.</div>
+<div *ngIf="!(coursesList$ | async)?.length" class="no-data-block">No data. Feel free to add new course.</div>
 
-<pagination [start]="currentPage" [count]="itemsPerPage" [allCount]="coursesCount" (pageChanged)="onPageChange($event)"></pagination>
+<pagination [start]="currentPage" [count]="itemsPerPage" [allCount]="coursesCount$ | async" (pageChanged)="onPageChange($event)"></pagination>
