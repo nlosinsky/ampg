@@ -28,6 +28,7 @@ import {
     OrderByPipe,
     FilterPipe
 } from './pipes';
+import { AuthGuard } from './guards';
 
 @NgModule({
   imports: [
@@ -47,7 +48,8 @@ import {
       },
       deps: [XHRBackend, RequestOptions, LocalStorageService]
     },
-    RestService
+    RestService,
+    AuthGuard
   ],
   exports: [
     FooterComponent,

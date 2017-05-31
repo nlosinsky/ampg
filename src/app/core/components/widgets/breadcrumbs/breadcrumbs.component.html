@@ -1,1 +1,5 @@
-<span>Courses</span>
+<div *ngIf="breadcrumbs?.length">
+	<a [routerLink]="'courses'">Courses</a>
+	>
+	<span *ngFor="let breadcrumb of breadcrumbs">{{breadcrumb.label}}</span>
+</div>

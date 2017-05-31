@@ -12,10 +12,6 @@ import { Login } from '../../core/entities';
 })
 export class LoginComponent implements OnInit, OnDestroy {
   private ngUnsubscribe: Subject<void> = new Subject<void>();
-  public loginForm: Login = {
-    login: '',
-    password: ''
-  };
 
   constructor(
       private authService: AuthService,
@@ -30,7 +26,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         .takeUntil(this.ngUnsubscribe)
         .subscribe((isAuth: boolean) => {
           if (isAuth) {
-            this.router.navigate(['/']);
+            this.router.navigate(['courses']);
           }
 
           this.cd.markForCheck();

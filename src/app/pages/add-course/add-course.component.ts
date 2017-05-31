@@ -1,10 +1,11 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, Input } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 import { CourseAuthor, CourseItem } from '../../core/entities';
 import { EndpointsConstant } from '../../core/constants';
 import { RestService } from '../../core/services';
+import { CoursesService } from '../courses';
 
 @Component({
   selector: 'add-course',
@@ -13,21 +14,25 @@ import { RestService } from '../../core/services';
 })
 
 export class AddCourseComponent implements OnInit {
+  availableCourseData: CourseItem;
+  courseForm: FormGroup;
+  authorsList: CourseAuthor[];
+
   @Input() set courseDetails(item: CourseItem) {
     if (item) {
       const { name: title, shortDescription: description, date, duration, authors } = item;
 
       this.courseForm.setValue({ title, description, date, duration, authors });
+      this.availableCourseData = item;
     }
   };
-  courseForm: FormGroup;
-  authorsList: CourseAuthor[];
 
   constructor(
       private fb: FormBuilder,
       private restService: RestService,
       private cd: ChangeDetectorRef,
-      private location: Location
+      private router: Router,
+      private coursesService: CoursesService
   ) {}
 
   ngOnInit(): void {
@@ -41,17 +46,40 @@ export class AddCourseComponent implements OnInit {
       authors: [[], [Validators.required]]
     });
 
-    this.restService.get(EndpointsConstant.AUTHORS.ALL).subscribe((data) => {
-      this.authorsList = data;
-      this.cd.markForCheck();
-    });
+    this.restService.get(EndpointsConstant.AUTHORS.ALL)
+        .subscribe((data) => {
+          this.authorsList = data;
+          this.cd.markForCheck();
+        });
   }
 
   onSubmit(): void {
-    console.info(this.courseForm.value, this.courseForm.valid);
+    if (this.availableCourseData) {
+      this.updateCourse();
+    } else {
+      this.createCourse();
+    }
+  }
+
+  createCourse(): void {
+    this.coursesService.createCourse(this.courseForm.value)
+        .subscribe((id) => {
+          console.info('COURSE CREATED!');
+
+          this.router.navigate(['courses', id]);
+        });
+  }
+
+  updateCourse(): void {
+    this.coursesService.updateItem(this.courseForm.value, this.availableCourseData)
+        .subscribe(() => {
+          console.info('COURSE UPDATED!');
+
+          this.router.navigate(['courses']);
+        });
   }
 
   onCancel(): void {
-    this.location.back();
+    this.router.navigate(['courses']);
   }
 }

@@ -1,7 +1,8 @@
 export const EndpointsConstant = {
   COURSES: {
     ALL: `/courses`,
-    SINGLE: `/courses/:id`
+    SINGLE: `/courses/:id`,
+    NEW: `/courses/new`
   },
   AUTH: {
     LOGIN: `/auth/login`,
