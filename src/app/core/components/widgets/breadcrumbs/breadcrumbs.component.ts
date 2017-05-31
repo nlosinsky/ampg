@@ -8,7 +8,7 @@ import {
 import { Subject } from 'rxjs';
 
 import { BreadcrumbsService } from './breadcrumbs.service';
-import { Breadcrumb } from '../../entities';
+import { Breadcrumb } from '../../../entities';
 
 @Component({
   selector: 'breadcrumbs',
