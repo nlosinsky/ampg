@@ -1,9 +1,11 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
+import { Store } from '@ngrx/store';
 
 import { AuthService } from '../../../services';
-import { User } from '../../../entities/user';
+import { AppState } from '../../../store';
+import { User } from '../../../entities';
 
 @Component({
   selector: 'main-header',
@@ -13,15 +15,15 @@ import { User } from '../../../entities/user';
 })
 
 export class HeaderComponent implements OnInit, OnDestroy {
-  private ngUnsubscribe: Subject<void> = new Subject<void>();
-
   isAuth: boolean;
   username: string;
+  private ngUnsubscribe: Subject<void> = new Subject<void>();
 
   constructor(
         private authService: AuthService,
         private cd: ChangeDetectorRef,
-        private router: Router
+        private router: Router,
+        private store: Store<AppState>
     ) {}
 
   ngOnInit(): void {
@@ -29,7 +31,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     this.isAuth = false;
 
-    this.authService.authChanged
+    this.store.select(appState => appState.auth.authorized)
         .takeUntil(this.ngUnsubscribe)
         .subscribe((data) => {
           if (this.isAuth && !data) {
@@ -41,7 +43,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
           this.cd.markForCheck();
         });
 
-    this.authService.userInfo
+    this.store.select(appState => appState.auth.user)
         .takeUntil(this.ngUnsubscribe)
         .subscribe((user: User) => {
           if (user.name) {

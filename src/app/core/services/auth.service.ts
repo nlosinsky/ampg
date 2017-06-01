@@ -1,23 +1,30 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, ReplaySubject } from 'rxjs';
+import { Store } from '@ngrx/store';
 
 import { User, Login } from '../entities';
 import { LSConstants, EndpointsConstant } from '../constants';
 import { LocalStorageService } from './local-storage-service';
 import { LoaderBlockService } from '../components/widgets';
 import { RestService } from './rest.service';
+import { AppState } from '../store';
+import {
+  AUTH_LOGIN_SUCCESS,
+  AUTH_SET_USER_INFO,
+  AUTH_SET_AUTHORIZED,
+  AUTH_LOGIN_FAILURE,
+  AUTH_SET_TOKEN
+} from '../store/actions';
 
 @Injectable()
 export class AuthService {
-  public userInfo: ReplaySubject<User|Object> = new ReplaySubject();
-  public authChanged: BehaviorSubject<boolean> = new BehaviorSubject(this.isAuthenticated());
-
   constructor(
       private localStorageService: LocalStorageService,
       private loaderBlockService: LoaderBlockService,
-      private restService: RestService
+      private restService: RestService,
+      private store: Store<AppState>
   ) {
-    this.userInfo.next(this.getUserInfo());
+    this.setUserInfo();
+    this.setAuthorized();
   }
 
   login({ login, password }: Login): void {
@@ -26,7 +33,8 @@ export class AuthService {
     this.restService.post(EndpointsConstant.AUTH.LOGIN, { login, password })
         .do(({ token }) => {
           this.localStorageService.set(LSConstants.COURSES_TOKEN, token);
-          this.authChanged.next(true);
+
+          this.store.dispatch({ type: AUTH_SET_TOKEN, payload: token });
         })
         .flatMap(() => this.restService.get(EndpointsConstant.AUTH.USER_INFO))
         .finally(() => this.loaderBlockService.hide())
@@ -34,28 +42,33 @@ export class AuthService {
             ({ id, login, name }) => {
               const user = new User(id, login, name);
 
-              this.userInfo.next(user);
               this.localStorageService.set(LSConstants.COURSES_USER, user);
+
+              this.store.dispatch({ type: AUTH_LOGIN_SUCCESS, payload: user });
             },
-            () => this.authChanged.next(false)
+            () => this.store.dispatch({ type: AUTH_LOGIN_FAILURE })
         );
   }
 
   logout(): void {
     this.localStorageService.remove(LSConstants.COURSES_USER);
     this.localStorageService.remove(LSConstants.COURSES_TOKEN);
-    this.authChanged.next(false);
-    this.userInfo.next(this.getUserInfo());
+    this.setAuthorized();
+    this.setUserInfo();
   }
 
-  private isAuthenticated(): boolean {
-    return Boolean(
+  private setAuthorized(): void {
+    const isAuthorized =  Boolean(
         this.localStorageService.get(LSConstants.COURSES_USER) &&
         this.localStorageService.get(LSConstants.COURSES_TOKEN)
     );
+
+    this.store.dispatch({ type: AUTH_SET_AUTHORIZED, payload: isAuthorized });
   }
 
-  private getUserInfo(): User|Object {
-    return this.localStorageService.get(LSConstants.COURSES_USER) || {};
+  private setUserInfo(): void {
+    const user = this.localStorageService.get(LSConstants.COURSES_USER) || {};
+
+    this.store.dispatch({ type: AUTH_SET_USER_INFO, payload: user });
   }
 }

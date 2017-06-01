@@ -9,7 +9,7 @@ export class State {
 	) {}
 }
 
-export const initialState: State =  {
+const initialState: State =  {
   courses: [],
   coursesCount: 0
 };

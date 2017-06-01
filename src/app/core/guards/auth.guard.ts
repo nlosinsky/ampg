@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
-import { AuthService } from '../services';
+import { Store } from '@ngrx/store';
+
+import { AppState } from '../store';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  private isAuth: boolean;
-
   constructor(
 			private router: Router,
-			private authService: AuthService
+			private store: Store<AppState>
 	) {}
 
   public canActivate(): boolean {
@@ -16,14 +16,17 @@ export class AuthGuard implements CanActivate {
   }
 
   private checkLogin(): boolean {
-    this.authService.authChanged.subscribe((data) => {
-      this.isAuth = data;
+    let isAuth = false;
 
-      if (!this.isAuth) {
-        this.router.navigate(['login']);
-      }
-    });
+    this.store.select(appState => appState.auth.authorized)
+      .subscribe((data) => {
+        isAuth = data;
 
-    return this.isAuth;
+        if (!isAuth) {
+          this.router.navigate(['login']);
+        }
+      });
+
+    return isAuth;
   }
 }
